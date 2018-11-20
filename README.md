@@ -34,25 +34,8 @@ The example project contains samples where each demonstrate CrownControl usabili
 
 ## Installation
 
-### CocoaPods
+**CrownControl is currently a WIP and will be available soon.**
 
-[CocoaPods](http://cocoapods.org) is a dependency manager for Cocoa projects. You can install it with the following command:
-
-```bash
-$ gem install cocoapods
-```
-
-To integrate QuickLayout into your Xcode project using CocoaPods, specify the following in your `Podfile`:
-
-```ruby
-pod 'CrownControl'
-```
-
-Then, run the following command:
-
-```bash
-$ pod install
-```
 ## Author
 
 Daniel Huri, huri000@gmail.com
