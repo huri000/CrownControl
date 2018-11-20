@@ -9,34 +9,23 @@
 Pod::Spec.new do |s|
   s.name             = 'CrownControl'
   s.version          = '0.1.0'
-  s.summary          = 'A short description of CrownControl.'
+  s.summary = 'A digital crown interface inspired by the Apple Watch Digital Crown.'
+  s.platform = :ios
+  s.ios.deployment_target = '9.0'
+  s.swift_version = '4.2'
+  s.requires_arc = true
 
-# This description is used to generate tags and improve search results.
-#   * Think: What does it do? Why did you write it? What is the focus?
-#   * Try to keep it short, snappy and to the point.
-#   * Write the description between the DESC delimiters below.
-#   * Finally, don't worry about the indent, CocoaPods strips it!
+s.description      = <<-DESC
+Inspired by the Apple Watch Digital Crown, CrownControl is an interface which controls scrollable content in your iOS apps.
+DESC
 
-  s.description      = <<-DESC
-TODO: Add long description of the pod here.
-                       DESC
-
-  s.homepage         = 'https://github.com/huri000@gmail.com/CrownControl'
-  # s.screenshots     = 'www.example.com/screenshots_1', 'www.example.com/screenshots_2'
+  s.homepage         = 'https://github.com/huri000/CrownControl'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
-  s.author           = { 'huri000@gmail.com' => 'huri000@gmail.com' }
-  s.source           = { :git => 'https://github.com/huri000@gmail.com/CrownControl.git', :tag => s.version.to_s }
-  # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
+  s.author           = { 'Daniel Huri' => 'huri000@gmail.com' }
+  s.source           = { :git => 'https://github.com/huri000/CrownControl.git', :tag => s.version.to_s }
 
-  s.ios.deployment_target = '8.0'
+  s.source_files = 'Source/**/*'
 
-  s.source_files = 'CrownControl/Classes/**/*'
-  
-  # s.resource_bundles = {
-  #   'CrownControl' => ['CrownControl/Assets/*.png']
-  # }
-
-  # s.public_header_files = 'Pod/Classes/**/*.h'
-  # s.frameworks = 'UIKit', 'MapKit'
-  # s.dependency 'AFNetworking', '~> 2.3'
+  s.frameworks = 'UIKit'
+  s.dependency 'QuickLayout', '2.1.1'
 end

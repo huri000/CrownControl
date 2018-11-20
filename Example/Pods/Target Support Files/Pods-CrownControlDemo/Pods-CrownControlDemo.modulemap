@@ -1,0 +1,6 @@
+framework module Pods_CrownControlDemo {
+  umbrella header "Pods-CrownControlDemo-umbrella.h"
+
+  export *
+  module * { export * }
+}

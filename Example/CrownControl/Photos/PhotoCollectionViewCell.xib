@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="PhotoCollectionViewCell" id="gTV-IL-0wX" customClass="PhotoCollectionViewCell" customModule="AnyPie" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="154" height="138"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="154" height="138"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="nON-PH-Vim">
+                        <rect key="frame" x="0.0" y="0.0" width="154" height="138"/>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Description" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lgc-3R-1If">
+                        <rect key="frame" x="0.0" y="121" width="154" height="17"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.40029430650684933" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="height" relation="lessThanOrEqual" constant="45" id="2On-3V-uQn"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+            </view>
+            <constraints>
+                <constraint firstItem="Lgc-3R-1If" firstAttribute="leading" secondItem="nON-PH-Vim" secondAttribute="leading" id="C0i-EQ-hkF"/>
+                <constraint firstItem="Lgc-3R-1If" firstAttribute="trailing" secondItem="nON-PH-Vim" secondAttribute="trailing" id="GbK-38-3Gb"/>
+                <constraint firstItem="nON-PH-Vim" firstAttribute="leading" secondItem="ZTg-uK-7eu" secondAttribute="leading" id="UcK-yv-d1L"/>
+                <constraint firstItem="Lgc-3R-1If" firstAttribute="bottom" secondItem="ZTg-uK-7eu" secondAttribute="bottom" id="d7w-kN-Exu"/>
+                <constraint firstItem="nON-PH-Vim" firstAttribute="top" secondItem="ZTg-uK-7eu" secondAttribute="top" id="efz-HE-kR5"/>
+                <constraint firstItem="ZTg-uK-7eu" firstAttribute="trailing" secondItem="nON-PH-Vim" secondAttribute="trailing" id="pq4-Nq-SaV"/>
+                <constraint firstItem="ZTg-uK-7eu" firstAttribute="bottom" secondItem="nON-PH-Vim" secondAttribute="bottom" id="xkZ-DK-Vxh"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
+            <size key="customSize" width="151" height="138"/>
+            <connections>
+                <outlet property="descriptionLabel" destination="Lgc-3R-1If" id="BSm-TU-TIN"/>
+                <outlet property="imageView" destination="nON-PH-Vim" id="fTb-3u-YTH"/>
+            </connections>
+            <point key="canvasLocation" x="67.200000000000003" y="107.94602698650675"/>
+        </collectionViewCell>
+    </objects>
+</document>

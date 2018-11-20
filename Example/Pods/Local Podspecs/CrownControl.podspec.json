@@ -1,0 +1,30 @@
+{
+  "name": "CrownControl",
+  "version": "0.1.0",
+  "summary": "A programmatical crown inspired by the Apple Watch digital crown.",
+  "platforms": {
+    "ios": "9.0"
+  },
+  "swift_version": "4.2",
+  "requires_arc": true,
+  "description": "CrownControl is a spinner which can control any scrollable content in your iOS app.",
+  "homepage": "https://github.com/huri000/CrownControl",
+  "license": {
+    "type": "MIT",
+    "file": "LICENSE"
+  },
+  "authors": {
+    "Daniel Huri": "huri000@gmail.com"
+  },
+  "source": {
+    "git": "https://github.com/huri000/CrownControl.git",
+    "tag": "0.1.0"
+  },
+  "source_files": "Source/**/*",
+  "frameworks": "UIKit",
+  "dependencies": {
+    "QuickLayout": [
+      "2.1.1"
+    ]
+  }
+}
