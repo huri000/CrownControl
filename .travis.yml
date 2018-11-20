@@ -5,7 +5,7 @@ podfile: Example/Podfile
 
 env:
   global:
-    - WORKSPACE=Example/SwiftEntryKit.xcworkspace
+    - WORKSPACE=Example/CrownControl.xcworkspace
     - SCHEME=CrownControlDemo
 
 # travis cache isn't kept between builds
