@@ -1,5 +1,5 @@
 //
-//  CrownAttributes+UserInteractions.swift
+//  CrownAttributes+UserInteraction.swift
 //  CrownControl
 //
 //  Created by Daniel Huri on 11/14/18.
@@ -11,7 +11,7 @@ import Foundation
 public extension CrownAttributes {
     
     /** Describes the interactions of the user with the crown */
-    public struct UserInteractions {
+    public struct UserInteraction {
         
         /** Desrcribes a certain action that takes place upon user gestures */
         public enum TapAction {
@@ -58,7 +58,7 @@ public extension CrownAttributes {
         }
         
         /** Drag and drop action */
-        public enum PlacementGesture {
+        public enum RepositionGesture {
             
             public struct Attributes {
                 
@@ -117,8 +117,8 @@ public extension CrownAttributes {
         /** Describes the action that takes place upon a double tap on the crown */
         public var doubleTap = TapAction.scrollsToLeadingEdge
         
-        /** The gesture that invokes the placement action */
-        public var placementGesture = PlacementGesture.prefersForceTouch(attributes: .init())
+        /** The gesture that invokes the reposition action */
+        public var repositionGesture = RepositionGesture.prefersForceTouch(attributes: .init())
 
         /** Initializer */
         public init() {}

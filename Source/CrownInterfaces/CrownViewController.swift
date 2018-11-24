@@ -64,7 +64,7 @@ public class CrownViewController: UIViewController {
     private var originalVerticalOffset: CGFloat = 0
     
     private var isForceTouchAvailable: Bool {
-        return traitCollection.forceTouchCapability == .available && attributes.userInteractions.placementGesture.isForceTouch
+        return traitCollection.forceTouchCapability == .available && attributes.userInteraction.repositionGesture.isForceTouch
     }
     
     // Returns true when the crown indicator reaches the leading edge
@@ -132,7 +132,7 @@ public class CrownViewController: UIViewController {
         contentView.layoutToSuperview(.left, .right, .top, .bottom)
         contentView.addSubview(backgroundView)
         
-        setupUserInteractions()
+        setupUserInteraction()
         
         view.transform = attributes.crownTransform
         
@@ -141,18 +141,18 @@ public class CrownViewController: UIViewController {
     
     // MARK: - Setup
     
-    private func setupUserInteractions() {
+    private func setupUserInteraction() {
         panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(panGestureRecognized))
         panGestureRecognizer.cancelsTouchesInView = false
         view.addGestureRecognizer(panGestureRecognizer)
 
-        if attributes.userInteractions.doubleTap.isInteractable {
+        if attributes.userInteraction.doubleTap.isInteractable {
             doubleTapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(doubleTapGestureRecognized))
             doubleTapGestureRecognizer.numberOfTapsRequired = 2
             view.addGestureRecognizer(doubleTapGestureRecognizer)
         }
         
-        if attributes.userInteractions.singleTap.isInteractable {
+        if attributes.userInteraction.singleTap.isInteractable {
             singleTapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(singleTapGestureRecognized))
             singleTapGestureRecognizer.numberOfTapsRequired = 1
             if let doubleTapGestureRecognizer = doubleTapGestureRecognizer {
@@ -161,9 +161,9 @@ public class CrownViewController: UIViewController {
             view.addGestureRecognizer(singleTapGestureRecognizer)
         }
         
-        if !isForceTouchAvailable && attributes.userInteractions.placementGesture.isLongPress {
+        if !isForceTouchAvailable && attributes.userInteraction.repositionGesture.isLongPress {
             longPressGestureRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(longPressGestureRecognized))
-            longPressGestureRecognizer.minimumPressDuration = attributes.userInteractions.placementGesture.longPressDuration
+            longPressGestureRecognizer.minimumPressDuration = attributes.userInteraction.repositionGesture.longPressDuration
             view.addGestureRecognizer(longPressGestureRecognizer)
         }
     }
@@ -189,9 +189,9 @@ public class CrownViewController: UIViewController {
         }
     }
     
-    // MARK: - User Interactions
+    // MARK: - User Interaction
     
-    private func crownTapped(using action: CrownAttributes.UserInteractions.TapAction) {
+    private func crownTapped(using action: CrownAttributes.UserInteraction.TapAction) {
         guard panSubject == .indicator else {
             return
         }
@@ -217,11 +217,11 @@ public class CrownViewController: UIViewController {
     }
     
     @objc private func doubleTapGestureRecognized(_ gestureRecognizer: UITapGestureRecognizer) {
-        crownTapped(using: attributes.userInteractions.doubleTap)
+        crownTapped(using: attributes.userInteraction.doubleTap)
     }
     
     @objc private func singleTapGestureRecognized(_ gestureRecognizer: UITapGestureRecognizer) {
-        crownTapped(using: attributes.userInteractions.singleTap)
+        crownTapped(using: attributes.userInteraction.singleTap)
     }
     
     @objc private func longPressGestureRecognized(_ gestureRecognizer: UILongPressGestureRecognizer) {
@@ -229,7 +229,7 @@ public class CrownViewController: UIViewController {
     }
     
     @objc private func panGestureRecognized(_ gestureRecognizer: UIPanGestureRecognizer) {
-        switch (panSubject, attributes.userInteractions.placementGesture.isForceTouch) {
+        switch (panSubject, attributes.userInteraction.repositionGesture.isForceTouch) {
         case (.indicator, _):
             panIndicator(using: gestureRecognizer)
         case (.crown, true):
@@ -492,7 +492,7 @@ public class CrownViewController: UIViewController {
             return
         }
         
-        guard case CrownAttributes.UserInteractions.PlacementGesture.prefersForceTouch(attributes: let forceTouchAttributes) = attributes.userInteractions.placementGesture else {
+        guard case CrownAttributes.UserInteraction.RepositionGesture.prefersForceTouch(attributes: let forceTouchAttributes) = attributes.userInteraction.repositionGesture else {
             return
         }
     

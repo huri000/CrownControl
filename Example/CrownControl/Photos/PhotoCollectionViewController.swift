@@ -42,7 +42,7 @@ class PhotoCollectionViewController: UIViewController {
     }
     
     private func setupCrownViewController() {
-        let attributes = CrownAttributes(using: collectionView)
+        var attributes = CrownAttributes(scrollView: collectionView, scrollAxis: .horizontal)
         attributes.sizes.backgroundSurfaceDiameter = 70
         attributes.anchorPosition = .top
         let color1 = UIColor(rgb: 0xffb347)
@@ -52,7 +52,6 @@ class PhotoCollectionViewController: UIViewController {
         attributes.foregroundStyle.border = .none
         attributes.foregroundStyle.shadow = .none
         attributes.sizes.scrollRelation = CGFloat(dataSource.count) * 0.5
-        attributes.scrollAxis = .horizontal
         
         crownViewController = CrownIndicatorViewController(with: attributes, delegate: self)
         

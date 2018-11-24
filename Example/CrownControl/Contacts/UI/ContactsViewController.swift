@@ -41,7 +41,7 @@ class ContactsViewController: UIViewController {
     }
     
     private func setupCrownViewController() {
-        let attributes = CrownAttributes(using: tableView)
+        var attributes = CrownAttributes(scrollView: tableView, scrollAxis: .vertical)
         attributes.foregroundStyle.content = .color(color: .white)
         attributes.backgroundStyle.content = .gradient(gradient: .init(colors: [UIColor(rgb: 0x304352), UIColor(rgb: 0xd7d2cc)], startPoint: .zero, endPoint: CGPoint(x: 1, y: 1)))
         attributes.backgroundStyle.border = .value(color: UIColor(rgb: 0x304352), width: 1)
