@@ -21,7 +21,7 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
-  CrownControl: 070c3b1f015e2706d3c1815bdba22f777253233f
+  CrownControl: 5cdc6e06640ba1d0538aa9ff2e8016506c84d656
   Nimble: 04f732da099ea4d153122aec8c2a88fd0c7219ae
   Quick: 2623cb30d7a7f41ca62f684f679586558f483d46
   QuickLayout: 9af2b7fd89a6552828f51a5aba28d1bcdb8b340c

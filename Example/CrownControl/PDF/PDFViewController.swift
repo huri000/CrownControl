@@ -41,10 +41,14 @@ class PDFViewController: UIViewController {
         let attributes = CrownAttributes(using: webView.scrollView)
         attributes.foregroundStyle.content = .color(color: .white)
         crownViewController = CrownIndicatorViewController(with: attributes)
-        addChild(crownViewController)
-        view.addSubview(crownViewController.view)
-        crownViewController.layoutVertically(.bottom, to: .bottom, of: webView, offset: -35)
-        crownViewController.layoutHorizontally(.trailing, to: .trailing, of: view, offset: -50)
+        
+        // Cling the bottom of the crown to the bottom of the web view with -35 offset
+        let verticalConstraint = CrownAttributes.AxisConstraint(crownEdge: .bottom, anchorView: webView, anchorViewEdge: .bottom, offset: -35)
+        
+        // Cling the bottom of the crown to the bottom of its superview with -50 offset
+        let horizontalConstraint = CrownAttributes.AxisConstraint(crownEdge: .trailing, anchorView: view, anchorViewEdge: .trailing, offset: -50)
+        
+        crownViewController.layout(in: self, horizontalConstaint: horizontalConstraint, verticalConstraint: verticalConstraint)
     }
 }
 

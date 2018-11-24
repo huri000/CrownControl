@@ -15,7 +15,7 @@ class PhotoCollectionViewController: UIViewController {
     
     @IBOutlet private weak var collectionView: UICollectionView!
     
-    private var crownIndicatorViewController: CrownViewController!
+    private var crownViewController: CrownViewController!
 
     private var dataSource: [PhotoData] = []
     
@@ -54,11 +54,15 @@ class PhotoCollectionViewController: UIViewController {
         attributes.sizes.scrollRelation = CGFloat(dataSource.count) * 0.5
         attributes.scrollAxis = .horizontal
         
-        crownIndicatorViewController = CrownIndicatorViewController(with: attributes, delegate: self)
-        addChild(crownIndicatorViewController)
-        view.addSubview(crownIndicatorViewController.view)
-        crownIndicatorViewController.layoutVertically(.bottom, to: .bottom, of: view, offset: -70)
-        crownIndicatorViewController.layoutHorizontally(.centerX, to: .centerX, of: view)
+        crownViewController = CrownIndicatorViewController(with: attributes, delegate: self)
+        
+        // Cling the bottom of the crown to the bottom of the web view with -35 offset
+        let verticalConstraint = CrownAttributes.AxisConstraint(crownEdge: .bottom, anchorView: view, anchorViewEdge: .bottom, offset: -70)
+        
+        // Cling the bottom of the crown to the bottom of its superview with -50 offset
+        let horizontalConstraint = CrownAttributes.AxisConstraint(crownEdge: .centerX, anchorView: view, anchorViewEdge: .centerX)
+        
+        crownViewController.layout(in: self, horizontalConstaint: horizontalConstraint, verticalConstraint: verticalConstraint)
     }
     
     private func loadData() {
@@ -108,7 +112,7 @@ extension PhotoCollectionViewController: UICollectionViewDataSource, UICollectio
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let xOffset = collectionView.contentOffset.x / (collectionView.contentSize.width - collectionView.bounds.width)
-        crownIndicatorViewController?.spin(to: xOffset)
+        crownViewController?.spin(to: xOffset)
     }
 }
 

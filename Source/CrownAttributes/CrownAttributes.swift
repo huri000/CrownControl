@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import QuickLayout
 
 /** Crown attributes descriptor */
 public class CrownAttributes {
