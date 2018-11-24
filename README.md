@@ -26,7 +26,7 @@
 
 ## Overview
 
-CrownControl is a simple scroll-view controller inspired by Apple Watch Digital Crown.
+Inspired by Apple Watch Digital Crown, CrownControl is a tiny accessory view that enables scrolling through scrollable content possible without lifting your thumb.
 
 ### Features
 
