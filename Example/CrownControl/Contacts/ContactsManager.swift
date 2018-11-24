@@ -27,7 +27,6 @@ class ContactManager {
         }
     }
     
-    
     // MARK: - Properties
     
     var accessState: AccessState {
@@ -49,7 +48,7 @@ class ContactManager {
     func requestAccess(completionHandler: @escaping AccessRequestCompletionHandler) {
         switch accessState {
         case .unknown:
-            CNContactStore().requestAccess(for: .contacts) { (granted, error) in
+            CNContactStore().requestAccess(for: .contacts) { granted, error in
                 DispatchQueue.main.async {
                     completionHandler(error == nil && granted ? .granted : .denied)
                 }
@@ -79,7 +78,7 @@ class ContactManager {
                     let containerContacts = try? contactStore.unifiedContacts(matching: fetchPredicate, keysToFetch: accessKeys as [CNKeyDescriptor])
                     if let containerContacts = containerContacts {
                         contacts += containerContacts.compactMap {
-                            guard let contact = Contact(id: $0.identifier, givenName: $0.givenName, familyName: $0.familyName) else {
+                            guard let contact = Contact(identifier: $0.identifier, givenName: $0.givenName, familyName: $0.familyName) else {
                                 return nil
                             }
                             self.add(contact: contact)

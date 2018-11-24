@@ -18,7 +18,7 @@ public class CrownAttributes {
     public var scrollAxis = ScrollAxis.vertical
     
     /** The anchor position of the indicator (Where the it points) */
-    public var anchorPosition = AnchorPosition.right
+    public var anchorPosition = AnchorPosition.top
     
     /** The direction of the spin */
     public var spinDirection = SpinDirection.clockwise
@@ -30,7 +30,7 @@ public class CrownAttributes {
     public var backgroundStyle = Style()
     
     /** The foreground style, shadow, and border */
-    public var forgroundStyle = Style()
+    public var foregroundStyle = Style()
 
     /** The size of the crown and indicator */
     public var sizes = Sizes()

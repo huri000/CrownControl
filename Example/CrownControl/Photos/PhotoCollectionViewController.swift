@@ -48,9 +48,9 @@ class PhotoCollectionViewController: UIViewController {
         let color1 = UIColor(rgb: 0xffb347)
         let color2 = UIColor(rgb: 0xffcc33)
         attributes.backgroundStyle.content = .color(color: UIColor(white: 0.98, alpha: 1))
-        attributes.forgroundStyle.content = .gradient(gradient: .init(colors: [color1, color2], startPoint: .zero, endPoint: .init(x: 1, y: 1)))
-        attributes.forgroundStyle.border = .none
-        attributes.forgroundStyle.shadow = .none
+        attributes.foregroundStyle.content = .gradient(gradient: .init(colors: [color1, color2], startPoint: .zero, endPoint: .init(x: 1, y: 1)))
+        attributes.foregroundStyle.border = .none
+        attributes.foregroundStyle.shadow = .none
         attributes.sizes.scrollRelation = CGFloat(dataSource.count) * 0.5
         attributes.scrollAxis = .horizontal
         

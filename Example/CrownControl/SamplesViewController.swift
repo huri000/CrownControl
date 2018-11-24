@@ -57,17 +57,17 @@ extension SamplesViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     private func navigateToPDFViewController() {
-        let vc = UIStoryboard.main.instantiateViewController(withIdentifier: PDFViewController.className) as! PDFViewController
-        navigationController!.pushViewController(vc, animated: true)
+        let viewController = UIStoryboard.main.instantiate(type: PDFViewController.self)
+        navigationController!.pushViewController(viewController, animated: true)
     }
     
     private func navigateToPhotoCollectionView() {
-        let vc = UIStoryboard.main.instantiateViewController(withIdentifier: PhotoCollectionViewController.className) as! PhotoCollectionViewController
-        navigationController!.pushViewController(vc, animated: true)
+        let viewController = UIStoryboard.main.instantiate(type: PhotoCollectionViewController.self)
+        navigationController!.pushViewController(viewController, animated: true)
     }
     
     private func navigateToContactsViewController() {
-        let vc = UIStoryboard.main.instantiateViewController(withIdentifier: ContactsViewController.className) as! ContactsViewController
-        navigationController!.pushViewController(vc, animated: true)
+        let viewController = UIStoryboard.main.instantiate(type: ContactsViewController.self)
+        navigationController!.pushViewController(viewController, animated: true)
     }
 }

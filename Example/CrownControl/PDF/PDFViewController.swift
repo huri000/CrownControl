@@ -39,7 +39,7 @@ class PDFViewController: UIViewController {
     
     private func setupCrownViewController() {
         let attributes = CrownAttributes(using: webView.scrollView)
-        attributes.forgroundStyle.content = .color(color: .white)
+        attributes.foregroundStyle.content = .color(color: .white)
         crownViewController = CrownIndicatorViewController(with: attributes)
         addChild(crownViewController)
         view.addSubview(crownViewController.view)

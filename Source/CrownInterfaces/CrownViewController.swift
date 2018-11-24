@@ -197,9 +197,9 @@ public class CrownViewController: UIViewController {
         }
         
         switch action {
-        case .scrollsForwardToAdditionalOffset(offset: let offset):
+        case .scrollsForwardWithOffset(value: let offset):
             attributes.scrollView?.add(offset: offset, to: attributes.scrollAxis)
-        case .scrollsBackwardWithOffset(offset: let offset):
+        case .scrollsBackwardWithOffset(value: let offset):
             attributes.scrollView?.subtract(offset: offset, from: attributes.scrollAxis)
         case .scrollsToLeadingEdge:
             attributes.scrollView?.scrollToLeadingEdge(using: attributes.scrollAxis)
@@ -492,7 +492,7 @@ public class CrownViewController: UIViewController {
             return
         }
         
-        guard case CrownAttributes.UserInteractions.PlacementGesture.preferForceTouch(attributes: let forceTouchAttributes) = attributes.userInteractions.placementGesture else {
+        guard case CrownAttributes.UserInteractions.PlacementGesture.prefersForceTouch(attributes: let forceTouchAttributes) = attributes.userInteractions.placementGesture else {
             return
         }
     

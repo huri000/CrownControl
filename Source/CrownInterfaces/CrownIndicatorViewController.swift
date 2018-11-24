@@ -19,7 +19,7 @@ public class CrownIndicatorViewController: CrownViewController {
     }
     
     private lazy var pinIndicatorView: PinIndicatorView = {
-        let pinIndicatorView = PinIndicatorView(anchorPoint: crownAnchorPoint, edgeSize: attributes.sizes.foregroundDiameter, background: attributes.forgroundStyle)
+        let pinIndicatorView = PinIndicatorView(anchorPoint: crownAnchorPoint, edgeSize: attributes.sizes.foregroundDiameter, background: attributes.foregroundStyle)
         return pinIndicatorView
     }()
         

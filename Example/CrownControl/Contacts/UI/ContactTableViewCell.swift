@@ -24,11 +24,11 @@ class ContactTableViewCell: UITableViewCell {
             thumbView.initials = contact.initials
             thumbView.image = nil
             
-            let id = contact.id
+            let identifier = contact.identifier
             DispatchQueue.global(qos: .userInitiated).async {
-                let image = self.contactManager.thumb(by: id)
+                let image = self.contactManager.thumb(by: identifier)
                 DispatchQueue.main.async {
-                    guard id == self.contact.id else {
+                    guard identifier == self.contact.identifier else {
                         return
                     }
                     self.thumbView.image = image

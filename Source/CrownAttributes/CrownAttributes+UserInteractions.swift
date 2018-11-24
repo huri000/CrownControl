@@ -20,10 +20,10 @@ public extension CrownAttributes {
             public typealias Custom = () -> Void
             
             /** Scrolls forward to an additional given offset. Corresponds to *ScrollAxis* */
-            case scrollsForwardToAdditionalOffset(offset: CGFloat)
+            case scrollsForwardWithOffset(value: CGFloat)
             
             /** Subtract value form the current offset. Corresponds to *ScrollAxis* */
-            case scrollsBackwardWithOffset(offset: CGFloat)
+            case scrollsBackwardWithOffset(value: CGFloat)
             
             /** Scrolls to the fathest leading edge of the scroll-view */
             case scrollsToLeadingEdge
@@ -78,14 +78,14 @@ public extension CrownAttributes {
             }
             
             /** Force touch enables the user to drag-and-drop. Prefer to use force touch in case the device hardware supports it. */
-            case preferForceTouch(attributes: Attributes.ForceTouch)
+            case prefersForceTouch(attributes: Attributes.ForceTouch)
             
             /** Prefer long press over force touch. Works on all the devices */
             case longPress(attributes: Attributes.LongPress)
             
             var isForceTouch: Bool {
                 switch self {
-                case .preferForceTouch:
+                case .prefersForceTouch:
                     return true
                 default:
                     return false
@@ -118,7 +118,7 @@ public extension CrownAttributes {
         public var doubleTap = TapAction.scrollsToLeadingEdge
         
         /** The gesture that invokes the placement action */
-        public var placementGesture = PlacementGesture.preferForceTouch(attributes: .init())
+        public var placementGesture = PlacementGesture.prefersForceTouch(attributes: .init())
 
         /** Initializer */
         public init() {}

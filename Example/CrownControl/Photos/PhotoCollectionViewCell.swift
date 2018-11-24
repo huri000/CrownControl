@@ -8,7 +8,6 @@
 
 import UIKit
 
-
 class PhotoCollectionViewCell: UICollectionViewCell {
 
     // MARK: - Properties

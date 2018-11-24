@@ -12,7 +12,7 @@ struct Contact {
     
     // MARK: - Properties
     
-    let id: String
+    let identifier: String
     let name: String
     
     var firstLetter: Character {
@@ -35,11 +35,11 @@ struct Contact {
     
     // MARK: - Setup
     
-    init?(id: String, givenName: String, familyName: String) {
+    init?(identifier: String, givenName: String, familyName: String) {
         guard !givenName.isEmpty || !familyName.isEmpty else {
             return nil
         }
-        self.id = id
+        self.identifier = identifier
         var name = givenName
         if name.isEmpty {
             name = familyName

@@ -10,6 +10,7 @@ import Foundation
 
 struct SampleData {
     typealias Action = () -> Void
+    
     let title: String
     let action: Action
 }
