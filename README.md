@@ -36,6 +36,10 @@ The crown consists of background and foreground surfaces. The foreground is an i
 
 The example project contains samples where each demonstrate CrownControl usability in a scrollable context.
 
+Web View / PDF | Contacts | Photo Collection
+--- | --- | ---
+![pdf_example](https://github.com/huri000/assets/blob/master/crown-control/pdf.gif) | ![contacts_example](https://github.com/huri000/assets/blob/master/crown-control/contacts.gif) | ![photos_example](https://github.com/huri000/assets/blob/master/crown-control/photos.gif)
+
 ## Requirements
 
 - iOS 9 or any higher version.
@@ -52,10 +56,12 @@ The example project contains samples where each demonstrate CrownControl usabili
 
 Using `CrownControl` is really simple.
 
+In your view controller:
+
 1. Define and bind `CrownAttributes` to a scroll view instance (And optionally customize the attributes).
 2. Instantiate and bind `CrownIndicatorViewController` instance to the `CrownAttributes` instance.
-3. Add `CrownIndicatorViewController` instance to view controllers and views heirarchy.
-4. Layout `CrownIndicatorViewController` horizontally and vertically in its superview.
+3. Define thr crown view controller constraints.
+4. Layout the crown view controller in its parent.
 
 ```Swift
 
@@ -65,10 +71,14 @@ var scrollView: UIScrollView!
 private func setupCrownViewController() {
     let attributes = CrownAttributes(using: scrollView)
     crownViewController = CrownIndicatorViewController(with: attributes)
-    addChild(crownViewController)
-    view.addSubview(crownViewController.view)
-    crownViewController.layoutVertically(.bottom, to: .bottom, of: webView, offset: -35)
-    crownViewController.layoutHorizontally(.trailing, to: .trailing, of: view, offset: -50)
+    
+    // Cling the bottom of the crown to the bottom of a view with -50 offset
+    let verticalConstraint = CrownAxisConstraint(crownEdge: .bottom, anchorView: view, anchorViewEdge: .bottom, offset: -50)
+    
+    // Cling the trailing edge of the crown to the trailing edge of a view with -50 offset
+    let horizontalConstraint = CrownAxisConstraint(crownEdge: .trailing, anchorView: tableView, anchorViewEdge: .trailing, offset: -50)
+    
+    crownViewController.layout(in: self, horizontalConstaint: horizontalConstraint, verticalConstraint: verticalConstraint)
 }
 ```
 
@@ -182,4 +192,4 @@ Daniel Huri, huri000@gmail.com
 
 ## License
 
-CrownControl is available under the MIT license. See the LICENSE file for more info.
+CrownControl is available under the MIT license. See the [LICENSE](/LICENSE) file for more info.

@@ -524,8 +524,6 @@ public class CrownViewController: UIViewController {
         }
     }
     
-    // MARK: - Exposed
-    
     /**
      Layout the crown horizontally in relation to another given view.
      - parameter edge: Crown edge.
@@ -533,7 +531,7 @@ public class CrownViewController: UIViewController {
      - parameter otherView: The other view to which the crown clings horizontally.
      - parameter offset: The horizontal offset from the edge.
      */
-    public func layoutHorizontally(_ edge: NSLayoutConstraint.Attribute, to otherEdge: NSLayoutConstraint.Attribute, of otherView: UIView, offset: CGFloat = 0) {
+    private func layoutHorizontally(_ edge: NSLayoutConstraint.Attribute, to otherEdge: NSLayoutConstraint.Attribute, of otherView: UIView, offset: CGFloat = 0) {
         originalHorizontalOffset = offset
         horizontalConstraint = view.layout(edge, to: otherEdge, of: otherView, offset: offset, priority: .must)
     }
@@ -545,9 +543,25 @@ public class CrownViewController: UIViewController {
      - parameter otherView: The other view to which the crown clings vertically.
      - parameter offset: The vertical offset from the edge.
      */
-    public func layoutVertically(_ edge: NSLayoutConstraint.Attribute, to otherEdge: NSLayoutConstraint.Attribute, of otherView: UIView, offset: CGFloat = 0) {
+    private func layoutVertically(_ edge: NSLayoutConstraint.Attribute, to otherEdge: NSLayoutConstraint.Attribute, of otherView: UIView, offset: CGFloat = 0) {
         originalVerticalOffset = offset
         verticalConstraint = view.layout(edge, to: otherEdge, of: otherView, offset: offset, priority: .must)
+    }
+    
+    
+    // MARK: - Exposed
+    
+    /**
+     Add the crown view controller as a child of a parent view controller and layout it vertically and horizontally.
+     - parameter parent: A parent view controller.
+     - parameter horizontalConstaint: Horizontal constraint construct.
+     - parameter verticalConstraint: Vertical constraint construct.
+     */
+    public func layout(in parent: UIViewController, horizontalConstaint: CrownAxisConstraint, verticalConstraint: CrownAxisConstraint) {
+        parent.addChild(self)
+        parent.view.addSubview(view)
+        layoutHorizontally(horizontalConstaint.crownEdge, to: horizontalConstaint.anchorViewEdge, of: horizontalConstaint.anchorView)
+        layoutVertically(verticalConstraint.crownEdge, to: verticalConstraint.anchorViewEdge, of: verticalConstraint.anchorView)
     }
     
     /**

@@ -47,10 +47,14 @@ class ContactsViewController: UIViewController {
         attributes.backgroundStyle.border = .value(color: UIColor(rgb: 0x304352), width: 1)
         attributes.sizes.scrollRelation = round(tableView.contentSize.height / UIScreen.main.bounds.height)
         crownViewController = CrownIndicatorViewController(with: attributes, delegate: self)
-        addChild(crownViewController)
-        view.addSubview(crownViewController.view)
-        crownViewController.layoutVertically(.bottom, to: .bottom, of: tableView, offset: -50)
-        crownViewController.layoutHorizontally(.right, to: .right, of: tableView, offset: -50)
+        
+        // Cling the bottom of the crown to the bottom of the web view with -50 offset
+        let verticalConstraint = CrownAxisConstraint(crownEdge: .bottom, anchorView: tableView, anchorViewEdge: .bottom, offset: -50)
+        
+        // Cling the bottom of the crown to the bottom of its superview with -50 offset
+        let horizontalConstraint = CrownAxisConstraint(crownEdge: .trailing, anchorView: tableView, anchorViewEdge: .trailing, offset: -50)
+        
+        crownViewController.layout(in: self, horizontalConstaint: horizontalConstraint, verticalConstraint: verticalConstraint)
     }
     
     private func loadData() {
