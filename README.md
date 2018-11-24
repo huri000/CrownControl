@@ -30,7 +30,14 @@ CrownControl is a simple scroll-view controller inspired by Apple Watch Digital 
 
 ### Features
 
-The crown consists of background and foreground surfaces. The foreground is an indicator which spins around the center as the attached scroll view scrolls. 
+The crown consists of background and foreground surfaces. 
+The foreground is an indicator which spins around the center as the attached scroll view offset changes.
+
+- [x] Can be repositioned either at the using force touch / long press.
+- [x] Can be spinned clockwise and couner clockwise.
+- [x] Most of the user interactions are configurable.
+- [x] Its size and foreground ratio are configurable.
+- [x] Can be fully stylized.
 
 ## Example Project
 
@@ -48,7 +55,29 @@ Web View / PDF | Contacts | Photo Collection
 
 ## Installation
 
-**CrownControl is currently a WIP and will be available soon.**
+### CocoaPods
+
+[CocoaPods](http://cocoapods.org) is a dependency manager for Cocoa projects. You can install it with the following command:
+
+```bash
+$ gem install cocoapods
+```
+
+To integrate CrownControl into your Xcode project using CocoaPods, specify it in your `Podfile`:
+
+```ruby
+source 'https://github.com/cocoapods/specs.git'
+platform :ios, '9.0'
+use_frameworks!
+
+pod 'CrownControl', '0.1.0'
+```
+
+Then, run the following command:
+
+```bash
+$ pod install
+```
 
 ## Usage
 
