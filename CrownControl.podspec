@@ -9,14 +9,14 @@
 Pod::Spec.new do |s|
   s.name = 'CrownControl'
   s.version = '0.1.0'
-  s.summary = 'A digital crown interface inspired by the Apple Watch Digital Crown.'
+  s.summary = 'A Digital Crown interface inspired by the Apple Watch Digital Crown.'
   s.platform = :ios
   s.ios.deployment_target = '9.0'
   s.swift_version = '4.2'
   s.requires_arc = true
 
 s.description = <<-DESC
-Inspired by the Apple Watch Digital Crown, CrownControl is an interface which controls scrollable content in your iOS apps.
+Inspired by the Apple Watch Digital Crown, CrownControl is an interface which can control scrollable content in your iOS apps.
 DESC
 
   s.homepage = 'https://github.com/huri000/CrownControl'

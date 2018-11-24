@@ -38,6 +38,7 @@
 		141B765621A1FC1F00583E0C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 141B765421A1FC1F00583E0C /* Main.storyboard */; };
 		141B765821A1FC7A00583E0C /* UIColor+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 141B765721A1FC7A00583E0C /* UIColor+Utils.swift */; };
 		141B765A21A1FC9E00583E0C /* Object+ClassName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 141B765921A1FC9E00583E0C /* Object+ClassName.swift */; };
+		144ED30321A98DFE0062DD74 /* CHANGELOG.md in Resources */ = {isa = PBXBuildFile; fileRef = 144ED30221A98DFE0062DD74 /* CHANGELOG.md */; };
 		14B7514921A2B3C400536272 /* SampleData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14B7514821A2B3C400536272 /* SampleData.swift */; };
 		14B7514C21A2B69E00536272 /* UIStoryboard+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14B7514B21A2B69E00536272 /* UIStoryboard+Utils.swift */; };
 		14B7514E21A2BC6000536272 /* CGRect+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14B7514D21A2BC6000536272 /* CGRect+Utils.swift */; };
@@ -92,6 +93,7 @@
 		141B765521A1FC1F00583E0C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		141B765721A1FC7A00583E0C /* UIColor+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Utils.swift"; sourceTree = "<group>"; };
 		141B765921A1FC9E00583E0C /* Object+ClassName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Object+ClassName.swift"; sourceTree = "<group>"; };
+		144ED30221A98DFE0062DD74 /* CHANGELOG.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; name = CHANGELOG.md; path = ../CHANGELOG.md; sourceTree = "<group>"; };
 		14B7514821A2B3C400536272 /* SampleData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleData.swift; sourceTree = "<group>"; };
 		14B7514B21A2B69E00536272 /* UIStoryboard+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIStoryboard+Utils.swift"; sourceTree = "<group>"; };
 		14B7514D21A2BC6000536272 /* CGRect+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGRect+Utils.swift"; sourceTree = "<group>"; };
@@ -295,6 +297,7 @@
 			children = (
 				A35773A4EB53D93CB3CCD530 /* CrownControl.podspec */,
 				29AEB16DA7289FAEB41C4F57 /* README.md */,
+				144ED30221A98DFE0062DD74 /* CHANGELOG.md */,
 				D73230BDE1CB6A516421FEF6 /* LICENSE */,
 			);
 			name = "Podspec Metadata";
@@ -412,6 +415,7 @@
 				141B763321A1FBD600583E0C /* PhotoCollectionViewCell.xib in Resources */,
 				141B765321A1FBF300583E0C /* sample.pdf in Resources */,
 				141B765121A1FBED00583E0C /* collection-photo-8.jpg in Resources */,
+				144ED30321A98DFE0062DD74 /* CHANGELOG.md in Resources */,
 				141B764A21A1FBED00583E0C /* collection-photo-13.jpg in Resources */,
 				607FACE01AFB9204008FA782 /* LaunchScreen.xib in Resources */,
 				607FACDD1AFB9204008FA782 /* Images.xcassets in Resources */,

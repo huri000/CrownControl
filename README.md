@@ -17,7 +17,7 @@
     * [Scroll Axis](#scroll-axis)
     * [Anchor Position](#anchor-position)
     * [Spin Direction](#spin-direction)
-    * [User Interactions](#user-interactions)
+    * [User Interaction](#user-interaction)
     * [Style](#style)
     * [Sizes](#sizes)
     * [Feedback](#feedback)
@@ -35,7 +35,7 @@ The foreground is an indicator which spins around the center as the attached scr
 
 - [x] Can be repositioned either using force touch or long press.
 - [x] Can be spinned clockwise and counter clockwise.
-- [x] Most of the user interactions are configurable.
+- [x] Most of the user interaction actions are configurable.
 - [x] The background and foreground sizes are configurable.
 - [x] Can be fully stylized.
 
@@ -70,7 +70,7 @@ source 'https://github.com/cocoapods/specs.git'
 platform :ios, '9.0'
 use_frameworks!
 
-pod 'CrownControl', '0.1.0'
+pod 'CrownControl', '0.1.1'
 ```
 
 Then, run the following command:
@@ -98,7 +98,7 @@ var crownViewController: CrownIndicatorViewController!
 var scrollView: UIScrollView!
 
 private func setupCrownViewController() {
-    let attributes = CrownAttributes(using: scrollView)
+    var attributes = CrownAttributes(scrollView: scrollView, scrollAxis: .vertical)
     crownViewController = CrownIndicatorViewController(with: attributes)
     
     // Cling the bottom of the crown to the bottom of a view with -50 offset
@@ -113,22 +113,16 @@ private func setupCrownViewController() {
 
 ### Crown Attributes
 
-`CrownAttributes` is the crown appearence descriptor. All of its nested properties describes the look and feel of the crown.
+`CrownAttributes` is the crown appearence descriptor. 
+Its nested properties describe the look and feel of the crown.
 
 #### Scroll Axis
 
-The axis of the scroll view can be horizontal or vertical.
-
-Example for setting the scroll axis to vertical:
-```Swift
-attributes.scrollAxis = .vertical
-```
-
-The default value is `.vertical`.
+The axis of the scroll view is a `.horizontal` or `.vertical`. It must be set during `CrownAttributes` initialization.
 
 ####  Anchor Position
 
-The anchor position of the foreground indicator. Indicates where the it initially points.
+The anchor position of the foreground indicator. Indicates where the foreground is initially positioned.
 
 ```Swift
 attributes.anchorPosition = .left
@@ -148,42 +142,42 @@ attributes.spinDirection = .counterClockwise
 
 The default value is `clockwise`.
 
-#### User Interactions
+#### User Interaction
 
-Describes the user interactions with the crown.
-Currently supported user interactions: tap, double tap, long-press, and force-touch events.
+Describes the user interaction with the crown.
+Currently supported user interaction gestures: tap, double tap, long-press, and force-touch events.
 
 ##### Tap Gestures
 
 When a single tap event occurs, scroll forward with the specified offset value: 
 ```Swift
-attributes.userInteractions.singleTap = .scrollsForwardWithOffset(value: 20)
+attributes.userInteraction.singleTap = .scrollsForwardWithOffset(value: 20)
 ```
 
 When a single tap event occurs, perform a custom action. 
 ```Swift
-attributes.userInteractions.singleTap = .custom(action: {
+attributes.userInteraction.singleTap = .custom(action: {
     /* Do something */
 })
 ```
 
 When a double tap event occurs, scroll to the leading edge of the scroll view. 
 ```Swift
-attributes.userInteractions.doubleTap = .scrollsToLeadingEdge
+attributes.userInteraction.doubleTap = .scrollsToLeadingEdge
 ```
 
 ##### Drag and Drop
 
 The crown can be dragged and dropped using force-touch if the force-touch trait is supported by the device hardware. If not, there is a fallback to long-press gesture.
 ```Swift
-attributes.placementGesture = .prefersForceTouch(attributes: .init())
+attributes.repositionGesture = .prefersForceTouch(attributes: .init())
 ```
 
 #### Style
 
 The background and foreground surfaces can be customized with various styles.
 
-Example for setting the crown background to gradient style, and its border to a specific color and width. 
+Example for setting the crown background to a gradient style, and its border to a specific color and width. 
 ```Swift
 attributes.backgroundStyle.content = .gradient(gradient: .init(colors: [.white, .gray], startPoint: .zero, endPoint: CGPoint(x: 1, y: 1)))
 attributes.backgroundStyle.border = .value(color: .gray, width: 1)
@@ -193,7 +187,7 @@ attributes.backgroundStyle.border = .value(color: .gray, width: 1)
 
 Describes the size of the crown and relations between the foreground and the background surfaces. 
 
-In the following example, setting `scrollRelation` property to 10, means that 10 full spins of the foreground would make the scroll view offset reach its trailing edge.
+In the following example, setting `scrollRelation` property to 10 means that 10 full spins of the foreground would make the scroll view offset reach its trailing edge.
 ```Swift
 attributes.sizes.scrollRelation = 10
 ```
@@ -206,7 +200,7 @@ attributes.sizes.foregroundSurfaceEdgeRatio = 0.25
 
 #### Feedback
 
-Feedback descriptor for the foreground reaching the anchor point on the crown surface.
+Feedback descriptor for the foreground when it reaches the anchor point on the crown surface.
 
 The device generates impact-haptic-feedback when the scroll-view offset reaches the leading edge.
 The background surface of the crown flashes with color.
