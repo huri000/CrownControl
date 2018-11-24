@@ -49,10 +49,10 @@ class ContactsViewController: UIViewController {
         crownViewController = CrownIndicatorViewController(with: attributes, delegate: self)
         
         // Cling the bottom of the crown to the bottom of the web view with -50 offset
-        let verticalConstraint = CrownAxisConstraint(crownEdge: .bottom, anchorView: tableView, anchorViewEdge: .bottom, offset: -50)
+        let verticalConstraint = CrownAttributes.AxisConstraint(crownEdge: .bottom, anchorView: tableView, anchorViewEdge: .bottom, offset: -50)
         
         // Cling the bottom of the crown to the bottom of its superview with -50 offset
-        let horizontalConstraint = CrownAxisConstraint(crownEdge: .trailing, anchorView: tableView, anchorViewEdge: .trailing, offset: -50)
+        let horizontalConstraint = CrownAttributes.AxisConstraint(crownEdge: .trailing, anchorView: tableView, anchorViewEdge: .trailing, offset: -50)
         
         crownViewController.layout(in: self, horizontalConstaint: horizontalConstraint, verticalConstraint: verticalConstraint)
     }

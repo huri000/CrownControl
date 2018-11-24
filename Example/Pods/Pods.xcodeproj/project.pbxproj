@@ -14,7 +14,7 @@
 		0A77E0F36A82528B3F93D1BC6B449878 /* CrownAttributes+UserInteractions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02BBA46700115A466ADDE6470486C984 /* CrownAttributes+UserInteractions.swift */; };
 		0C345DBBF5EF9ED046CB579FDD401A57 /* NimbleEnvironment.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91D6E03E1705216B905301806306F9B /* NimbleEnvironment.swift */; settings = {COMPILER_FLAGS = "-DPRODUCT_NAME=Nimble/Nimble"; }; };
 		0D74DB80E4766C505062F32B6C5A70AD /* BeAnInstanceOf.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2528A731BE27BFDD43FE609FE010430 /* BeAnInstanceOf.swift */; settings = {COMPILER_FLAGS = "-DPRODUCT_NAME=Nimble/Nimble"; }; };
-		144ED2FF21A978AE0062DD74 /* CrownAxisConstraint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 144ED2FC21A96B170062DD74 /* CrownAxisConstraint.swift */; };
+		144ED30121A97AB00062DD74 /* CrownAttributes+AxisConstraint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 144ED30021A97AB00062DD74 /* CrownAttributes+AxisConstraint.swift */; };
 		14B7515021A2CF0B00536272 /* CrownAttributes+Accessors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14B7514F21A2CF0B00536272 /* CrownAttributes+Accessors.swift */; };
 		14B7515221A2D9EB00536272 /* CrownDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14B7515121A2D9EB00536272 /* CrownDelegate.swift */; };
 		14B7515721A2FEE800536272 /* UIView+PositionUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14B7515621A2FEE800536272 /* UIView+PositionUtils.swift */; };
@@ -225,7 +225,7 @@
 		0E40629FAF1D96F65EB64E761AD3FB78 /* QCKDSL.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = QCKDSL.m; path = Sources/QuickObjectiveC/DSL/QCKDSL.m; sourceTree = "<group>"; };
 		11BDEB5D838AC87F04ADA904CBBED97C /* Await.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Await.swift; path = Sources/Nimble/Utils/Await.swift; sourceTree = "<group>"; };
 		1254E82DE774408DEDC849D9145160B6 /* DSL.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = DSL.swift; path = Sources/Quick/DSL/DSL.swift; sourceTree = "<group>"; };
-		144ED2FC21A96B170062DD74 /* CrownAxisConstraint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrownAxisConstraint.swift; sourceTree = "<group>"; };
+		144ED30021A97AB00062DD74 /* CrownAttributes+AxisConstraint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CrownAttributes+AxisConstraint.swift"; sourceTree = "<group>"; };
 		14B7514F21A2CF0B00536272 /* CrownAttributes+Accessors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CrownAttributes+Accessors.swift"; sourceTree = "<group>"; };
 		14B7515121A2D9EB00536272 /* CrownDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrownDelegate.swift; sourceTree = "<group>"; };
 		14B7515621A2FEE800536272 /* UIView+PositionUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+PositionUtils.swift"; sourceTree = "<group>"; };
@@ -772,9 +772,9 @@
 		A3592788283D1E8C9EE9E93405CDA3E3 /* CrownAttributes */ = {
 			isa = PBXGroup;
 			children = (
-				144ED2FC21A96B170062DD74 /* CrownAxisConstraint.swift */,
 				F4B96A20ABD201BE79C38B41DDDBB360 /* ClockCrownAttributes.swift */,
 				7966C45FA1592BBA1370EF448C3674D8 /* CrownAttributes.swift */,
+				144ED30021A97AB00062DD74 /* CrownAttributes+AxisConstraint.swift */,
 				70CB413B5AD0AB692E9C6143E3722A0F /* CrownAttributes+AnchorPosition.swift */,
 				9E1756110714F0CED72AFBC2622A31A1 /* CrownAttributes+Feedback.swift */,
 				91B77285D123E55EE5799AFFE367CC7F /* CrownAttributes+ScrollAxis.swift */,
@@ -1203,6 +1203,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				14B7515221A2D9EB00536272 /* CrownDelegate.swift in Sources */,
+				144ED30121A97AB00062DD74 /* CrownAttributes+AxisConstraint.swift in Sources */,
 				14B7515021A2CF0B00536272 /* CrownAttributes+Accessors.swift in Sources */,
 				458311D44824F3D292616A124D1AC8B9 /* BackgroundView.swift in Sources */,
 				ABA41566CAE3D0E9ABB3EDC47A30AAB3 /* CGPoint+Utils.swift in Sources */,
@@ -1217,7 +1218,6 @@
 				0A77E0F36A82528B3F93D1BC6B449878 /* CrownAttributes+UserInteractions.swift in Sources */,
 				AFF9C98705B25F82FE3A21A6B217D304 /* CrownAttributes.swift in Sources */,
 				75EB7840BB7D0D1AB70B070BBC4FDBA1 /* CrownViewController.swift in Sources */,
-				144ED2FF21A978AE0062DD74 /* CrownAxisConstraint.swift in Sources */,
 				7CB3E6ED7D3D659EA6D448933E3667D2 /* CrownControl-dummy.m in Sources */,
 				8CB09CA927D8E4B9393CE43BC30DDA75 /* CrownIndicatorViewController.swift in Sources */,
 				C4AF6D5EC915A0F167D1F15EE943B406 /* GradientView.swift in Sources */,

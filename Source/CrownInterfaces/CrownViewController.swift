@@ -557,7 +557,7 @@ public class CrownViewController: UIViewController {
      - parameter horizontalConstaint: Horizontal constraint construct.
      - parameter verticalConstraint: Vertical constraint construct.
      */
-    public func layout(in parent: UIViewController, horizontalConstaint: CrownAxisConstraint, verticalConstraint: CrownAxisConstraint) {
+    public func layout(in parent: UIViewController, horizontalConstaint: CrownAttributes.AxisConstraint, verticalConstraint: CrownAttributes.AxisConstraint) {
         parent.addChild(self)
         parent.view.addSubview(view)
         layoutHorizontally(horizontalConstaint.crownEdge, to: horizontalConstaint.anchorViewEdge, of: horizontalConstaint.anchorView, offset: horizontalConstaint.offset)
