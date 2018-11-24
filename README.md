@@ -112,6 +112,15 @@ private func setupCrownViewController() {
 }
 ```
 
+To make the crown respond to scrolling events that emanates from any other invoker but the crown, add to `scrollViewDidScroll(_:)` the following (depending on the scroll axis, replace `y` with `x`, and `height` with `width`):
+
+```Swift
+func scrollViewDidScroll(_ scrollView: UIScrollView) {
+    let xOffset = collectionView.contentOffset.y / (collectionView.contentSize.height - collectionView.bounds.height)
+    crownViewController?.spin(to: xOffset)
+}
+```
+
 ### Crown Attributes
 
 `CrownAttributes` is the crown appearence descriptor. 
