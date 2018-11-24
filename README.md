@@ -33,15 +33,15 @@ CrownControl is a simple scroll-view controller inspired by Apple Watch Digital 
 The crown consists of background and foreground surfaces. 
 The foreground is an indicator which spins around the center as the attached scroll view offset changes.
 
-- [x] Can be repositioned either at the using force touch / long press.
-- [x] Can be spinned clockwise and couner clockwise.
+- [x] Can be repositioned either using force touch or long press.
+- [x] Can be spinned clockwise and counter clockwise.
 - [x] Most of the user interactions are configurable.
-- [x] Its size and foreground ratio are configurable.
+- [x] The background and foreground sizes are configurable.
 - [x] Can be fully stylized.
 
 ## Example Project
 
-The example project contains samples where each demonstrate CrownControl usability in a scrollable context.
+The example project contains samples where each demonstrates the CrownControl usability in a scrollable context.
 
 Web View / PDF | Contacts | Photo Collection
 --- | --- | ---
@@ -87,9 +87,9 @@ Using `CrownControl` is really simple.
 
 In your view controller:
 
-1. Define and bind `CrownAttributes` to a scroll view instance (And optionally customize the attributes).
+1. Define and bind `CrownAttributes` to a scroll view instance, and optionally customize the attributes.
 2. Instantiate and bind `CrownIndicatorViewController` instance to the `CrownAttributes` instance.
-3. Define thr crown view controller constraints.
+3. Define the crown view controller constraints.
 4. Layout the crown view controller in its parent.
 
 ```Swift
@@ -102,10 +102,10 @@ private func setupCrownViewController() {
     crownViewController = CrownIndicatorViewController(with: attributes)
     
     // Cling the bottom of the crown to the bottom of a view with -50 offset
-    let verticalConstraint = CrownAxisConstraint(crownEdge: .bottom, anchorView: view, anchorViewEdge: .bottom, offset: -50)
+    let verticalConstraint = CrownAttributes.AxisConstraint(crownEdge: .bottom, anchorView: view, anchorViewEdge: .bottom, offset: -50)
     
     // Cling the trailing edge of the crown to the trailing edge of a view with -50 offset
-    let horizontalConstraint = CrownAxisConstraint(crownEdge: .trailing, anchorView: tableView, anchorViewEdge: .trailing, offset: -50)
+    let horizontalConstraint = CrownAttributes.AxisConstraint(crownEdge: .trailing, anchorView: tableView, anchorViewEdge: .trailing, offset: -50)
     
     crownViewController.layout(in: self, horizontalConstaint: horizontalConstraint, verticalConstraint: verticalConstraint)
 }
