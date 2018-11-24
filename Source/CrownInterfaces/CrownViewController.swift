@@ -560,8 +560,8 @@ public class CrownViewController: UIViewController {
     public func layout(in parent: UIViewController, horizontalConstaint: CrownAxisConstraint, verticalConstraint: CrownAxisConstraint) {
         parent.addChild(self)
         parent.view.addSubview(view)
-        layoutHorizontally(horizontalConstaint.crownEdge, to: horizontalConstaint.anchorViewEdge, of: horizontalConstaint.anchorView)
-        layoutVertically(verticalConstraint.crownEdge, to: verticalConstraint.anchorViewEdge, of: verticalConstraint.anchorView)
+        layoutHorizontally(horizontalConstaint.crownEdge, to: horizontalConstaint.anchorViewEdge, of: horizontalConstaint.anchorView, offset: horizontalConstaint.offset)
+        layoutVertically(verticalConstraint.crownEdge, to: verticalConstraint.anchorViewEdge, of: verticalConstraint.anchorView, offset: verticalConstraint.offset)
     }
     
     /**
