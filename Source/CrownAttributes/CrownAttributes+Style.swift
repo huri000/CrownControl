@@ -68,6 +68,15 @@ public extension CrownAttributes {
                     self.opacity = opacity
                 }
             }
+            
+            var hasValue: Bool {
+                switch self {
+                case .none:
+                    return false
+                default:
+                    return true
+                }
+            }
         }
         
         /** The border around the crown */

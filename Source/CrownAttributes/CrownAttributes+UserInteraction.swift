@@ -106,7 +106,7 @@ public extension CrownAttributes {
                 case .longPress(attributes: let attributes):
                     return attributes.minimalDuration
                 default:
-                    fatalError("longPressDuration is not implemented")
+                    fatalError("\(#function) is not implemented")
                 }
             }
         }

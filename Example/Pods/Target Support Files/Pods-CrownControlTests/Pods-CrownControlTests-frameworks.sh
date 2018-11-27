@@ -146,13 +146,17 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/CrownControl/CrownControl.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/QuickLayout/QuickLayout.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/Nimble/Nimble.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/Nimble-Snapshots/Nimble_Snapshots.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/Quick/Quick.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/iOSSnapshotTestCase/FBSnapshotTestCase.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/CrownControl/CrownControl.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/QuickLayout/QuickLayout.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/Nimble/Nimble.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/Nimble-Snapshots/Nimble_Snapshots.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/Quick/Quick.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/iOSSnapshotTestCase/FBSnapshotTestCase.framework"
 fi
 if [ "${COCOAPODS_PARALLEL_CODE_SIGN}" == "true" ]; then
   wait
