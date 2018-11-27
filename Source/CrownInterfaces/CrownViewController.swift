@@ -95,6 +95,24 @@ public class CrownViewController: UIViewController {
         return CGRect(x: minX, y: minY, width: view.maxX - minX, height: view.maxY - minY)
     }
     
+    private var isAbleToSpin: Bool {
+        guard let scrollView = attributes.scrollView else {
+            return false
+        }
+        let contentSize: CGFloat
+        let edgeSize: CGFloat
+        
+        switch attributes.scrollAxis {
+        case .vertical:
+            contentSize = scrollView.contentSize.height
+            edgeSize = scrollView.bounds.height
+        case .horizontal:
+            contentSize = scrollView.contentSize.width
+            edgeSize = scrollView.bounds.width
+        }
+        return contentSize - edgeSize > 0
+    }
+    
     // The crown attributes descriptor
     let attributes: CrownAttributes
     
@@ -318,6 +336,12 @@ public class CrownViewController: UIViewController {
         case .began:
             delegate?.crownDidBeginSpinning(self)
         case .changed:
+            defer {
+                gestureRecognizer.setTranslation(.zero, in: superview)
+            }
+            guard isAbleToSpin else {
+                return
+            }
             
             lockPanGesture = true
             
@@ -347,7 +371,6 @@ public class CrownViewController: UIViewController {
             // Update previous angle
             previousAngleInRadians = currentAngleInRadians
             
-            gestureRecognizer.setTranslation(.zero, in: superview)
             lockPanGesture = false
             
         case .cancelled, .ended, .failed:
@@ -433,6 +456,7 @@ public class CrownViewController: UIViewController {
         }
         
         var newAxisOffset = progress * (contentSize - edgeSize)
+        
         if newAxisOffset < 0 {
             newAxisOffset = 0
         } else if contentSize >= edgeSize {

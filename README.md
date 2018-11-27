@@ -71,7 +71,7 @@ source 'https://github.com/cocoapods/specs.git'
 platform :ios, '9.0'
 use_frameworks!
 
-pod 'CrownControl', '0.1.2'
+pod 'CrownControl', '0.1.3'
 ```
 
 Then, run the following command:
