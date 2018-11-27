@@ -132,6 +132,49 @@ class CrownAttributesSpec: QuickSpec {
                     }
                 }
             }
+            
+            context("border") {
+                var border: CrownAttributes.Style.Border!
+                beforeEach {
+                    border = .value(color: .white, width: 2)
+                }
+                
+                it("hasBorder returns a truthy value") {
+                    expect(border.hasBorder).to(beTrue())
+                }
+                
+                it("borderValues are valid") {
+                    expect(border.borderValues).toNot(beNil())
+                }
+            }
+            
+            context("shadow") {
+                it("has value") {
+                    let shadow = CrownAttributes.Style.Shadow.active(with: .init(color: .black, opacity: 0.5, radius: 2))
+                    expect(shadow.hasValue).to(beTrue())
+                }
+            }
+            
+            context("sizes") {
+                var sizes: CrownAttributes.Sizes!
+                beforeEach {
+                    sizes = CrownAttributes.Sizes()
+                    sizes.backgroundSurfaceDiameter = 50
+                }
+                
+                it("background surface radius is calculated correctly") {
+                    expect(sizes.backgroundSurfaceRadius).to(equal(25))
+                }
+                
+                it("center is calculated correctly") {
+                    expect(sizes.crownCenter).to(equal(.init(x: 25, y: 25)))
+                }
+                
+                it("crown foreground diameter is calculated correctly") {
+                    sizes.foregroundSurfaceEdgeRatio = 0.2
+                    expect(sizes.foregroundDiameter).to(equal(sizes.backgroundSurfaceDiameter * sizes.foregroundSurfaceEdgeRatio))
+                }
+            }
         }
     }
 }
