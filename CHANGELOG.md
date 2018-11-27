@@ -1,6 +1,10 @@
 # Change Log
 Any notable changes to this project will be documented in this file.
 
+## 0.1.2
+
+Added unit-tests for `CrownAttributes`.
+
 ## 0.1.1
 
 - Documentation revision.
