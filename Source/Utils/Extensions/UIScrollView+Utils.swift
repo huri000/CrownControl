@@ -10,7 +10,7 @@ import UIKit
 
 extension UIScrollView {
     
-    func scrollToLeadingEdge(using axis: CrownAttributes.ScrollAxis) {
+    func scrollToLeadingEdge(using axis: CrownAttributes.ScrollAxis, animated: Bool = true) {
         let point: CGPoint
         switch axis {
         case .vertical:
@@ -18,17 +18,17 @@ extension UIScrollView {
         case .horizontal:
             point = CGPoint(x: 0, y: contentOffset.y)
         }
-        setContentOffset(point, animated: true)
+        setContentOffset(point, animated: animated)
     }
     
-    func scrollToTrailingEdge(using axis: CrownAttributes.ScrollAxis) {
+    func scrollToTrailingEdge(using axis: CrownAttributes.ScrollAxis, animated: Bool = true) {
         switch axis {
         case .vertical where contentSize.height > bounds.size.height:
             let frame = CGRect(x: contentOffset.x, y: contentSize.height - 1.0, width: contentSize.width, height: 1.0)
-            scrollRectToVisible(frame, animated: true)
+            scrollRectToVisible(frame, animated: animated)
         case .horizontal where contentSize.width > bounds.size.width:
             let frame = CGRect(x: contentSize.width - 1.0, y: contentOffset.y, width: 1, height: contentSize.height)
-            scrollRectToVisible(frame, animated: true)
+            scrollRectToVisible(frame, animated: animated)
         default:
             break
         }

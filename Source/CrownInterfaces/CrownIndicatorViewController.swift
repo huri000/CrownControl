@@ -19,7 +19,7 @@ public class CrownIndicatorViewController: CrownViewController {
     }
     
     private lazy var pinIndicatorView: PinIndicatorView = {
-        let pinIndicatorView = PinIndicatorView(anchorPoint: crownAnchorPoint, edgeSize: attributes.sizes.foregroundDiameter, background: attributes.foregroundStyle)
+        let pinIndicatorView = PinIndicatorView(anchorPoint: viewModel.crownAnchorPoint, edgeSize: attributes.sizes.foregroundDiameter, background: attributes.foregroundStyle)
         return pinIndicatorView
     }()
         
@@ -47,6 +47,6 @@ public class CrownIndicatorViewController: CrownViewController {
     // MARK: - Calculation Accessors
     
     override func translate() {
-        pinIndicatorView.center = calculateCenter(by: attributes.sizes.innerCircleEdgeSize * 0.5, angle: currentAngleInRadians)
+        pinIndicatorView.center = viewModel.calculateForegroundCenter(by: attributes.sizes.innerCircleEdgeSize * 0.5, angle: currentForegroundAngle)
     }
 }

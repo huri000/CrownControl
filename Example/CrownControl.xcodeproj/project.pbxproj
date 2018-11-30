@@ -38,6 +38,7 @@
 		141B765621A1FC1F00583E0C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 141B765421A1FC1F00583E0C /* Main.storyboard */; };
 		141B765821A1FC7A00583E0C /* UIColor+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 141B765721A1FC7A00583E0C /* UIColor+Utils.swift */; };
 		141B765A21A1FC9E00583E0C /* Object+ClassName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 141B765921A1FC9E00583E0C /* Object+ClassName.swift */; };
+		14322ECB21AF29BC00EDF7D6 /* CrownViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14322ECA21AF29BC00EDF7D6 /* CrownViewControllerTests.swift */; };
 		144ED30321A98DFE0062DD74 /* CHANGELOG.md in Resources */ = {isa = PBXBuildFile; fileRef = 144ED30221A98DFE0062DD74 /* CHANGELOG.md */; };
 		14B7514921A2B3C400536272 /* SampleData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14B7514821A2B3C400536272 /* SampleData.swift */; };
 		14B7514C21A2B69E00536272 /* UIStoryboard+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14B7514B21A2B69E00536272 /* UIStoryboard+Utils.swift */; };
@@ -92,6 +93,7 @@
 		141B765521A1FC1F00583E0C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		141B765721A1FC7A00583E0C /* UIColor+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Utils.swift"; sourceTree = "<group>"; };
 		141B765921A1FC9E00583E0C /* Object+ClassName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Object+ClassName.swift"; sourceTree = "<group>"; };
+		14322ECA21AF29BC00EDF7D6 /* CrownViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrownViewControllerTests.swift; sourceTree = "<group>"; };
 		144ED30221A98DFE0062DD74 /* CHANGELOG.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; name = CHANGELOG.md; path = ../CHANGELOG.md; sourceTree = "<group>"; };
 		14B7514821A2B3C400536272 /* SampleData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleData.swift; sourceTree = "<group>"; };
 		14B7514B21A2B69E00536272 /* UIStoryboard+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIStoryboard+Utils.swift"; sourceTree = "<group>"; };
@@ -281,6 +283,7 @@
 			isa = PBXGroup;
 			children = (
 				607FACEB1AFB9204008FA782 /* CrownAttributesTests.swift */,
+				14322ECA21AF29BC00EDF7D6 /* CrownViewControllerTests.swift */,
 				607FACE91AFB9204008FA782 /* Supporting Files */,
 			);
 			path = CrownControlTests;
@@ -587,6 +590,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				14322ECB21AF29BC00EDF7D6 /* CrownViewControllerTests.swift in Sources */,
 				607FACEC1AFB9204008FA782 /* CrownAttributesTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
