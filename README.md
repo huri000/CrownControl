@@ -87,25 +87,25 @@ $ pod install
 
 Using `CrownControl` is really simple.
 
-In your view controller:
+In your view:
 
 1. Define and bind `CrownAttributes` to a scroll view instance, and optionally customize the attributes.
 2. Instantiate and bind the `CrownControl` instance to the `CrownAttributes` instance.
-3. Setup the `CrownControl` instance in its superview.
+3. Setup the `CrownControl` instance in a given superview using constraints to determine its position.
 
 ```Swift
 
-var crownControl: CrownControl!
-var scrollView: UIScrollView!
+private var crownControl: CrownControl!
+private var scrollView: UIScrollView!
 
 private func setupCrownViewController() {
     let attributes = CrownAttributes(scrollView: scrollView, scrollAxis: .vertical)
     
     // Cling the bottom of the crown to the bottom of a view with -50 offset
-    let verticalConstraint = CrownAttributes.AxisConstraint(crownEdge: .bottom, anchorView: view, anchorViewEdge: .bottom, offset: -50)
+    let verticalConstraint = CrownAttributes.AxisConstraint(crownEdge: .bottom, anchorView: scrollView, anchorViewEdge: .bottom, offset: -50)
     
     // Cling the trailing edge of the crown to the trailing edge of a view with -50 offset
-    let horizontalConstraint = CrownAttributes.AxisConstraint(crownEdge: .trailing, anchorView: tableView, anchorViewEdge: .trailing, offset: -50)
+    let horizontalConstraint = CrownAttributes.AxisConstraint(crownEdge: .trailing, anchorView: scrollView, anchorViewEdge: .trailing, offset: -50)
 
     // Setup the crown control within *self*
     crownControl = CrownControl(attributes: attributes, delegate: self)
