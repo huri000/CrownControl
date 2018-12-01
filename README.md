@@ -124,7 +124,7 @@ func scrollViewDidScroll(_ scrollView: UIScrollView) {
 
 ### Crown Attributes
 
-`CrownAttributes` is the crown appearence descriptor. 
+`CrownAttributes` is the crown appearance descriptor. 
 Its nested properties describe the look and feel of the crown.
 
 #### Scroll Axis
