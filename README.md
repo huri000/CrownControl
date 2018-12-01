@@ -3,6 +3,7 @@
 [![Platform](http://img.shields.io/badge/platform-iOS-blue.svg?style=flat)](https://developer.apple.com/iphone/index.action)
 [![Language](http://img.shields.io/badge/language-Swift-brightgreen.svg?style=flat)](https://developer.apple.com/swift)
 [![Version](https://img.shields.io/cocoapods/v/CrownControl.svg?style=flat-square)](http://cocoapods.org/pods/CrownControl)
+[![codecov](https://codecov.io/gh/huri000/CrownControl/branch/master/graph/badge.svg)](https://codecov.io/gh/huri000/CrownControl)
 [![License](http://img.shields.io/badge/license-MIT-lightgrey.svg?style=flat)](http://mit-license.org)
 ![](https://travis-ci.com/huri000/CrownControl.svg?branch=master)
 
@@ -71,7 +72,7 @@ source 'https://github.com/cocoapods/specs.git'
 platform :ios, '9.0'
 use_frameworks!
 
-pod 'CrownControl', '0.1.3'
+pod 'CrownControl', '1.0.0'
 ```
 
 Then, run the following command:

@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name = 'CrownControl'
-  s.version = '0.1.4'
+  s.version = '1.0.0'
   s.summary = 'A Digital Crown interface inspired by the Apple Watch Digital Crown.'
   s.platform = :ios
   s.ios.deployment_target = '9.0'
