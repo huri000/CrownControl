@@ -1,5 +1,5 @@
 //
-//  CrownViewControllerTests.swift
+//  CrownInteractionSpec.swift
 //  CrownControlTests
 //
 //  Created by Daniel Huri on 11/28/18.
@@ -10,18 +10,18 @@ import Quick
 import Nimble
 @testable import CrownControl
 
-class CrownControlViewModelTests: QuickSpec, CrownControlDefaultSetup {
+// Describes tests that are made through the crown controller
+class CrownInteractionSpec: QuickSpec, CrownControlDefaultSetup {
     override func spec() {
 
-        describe("test crown control view model") {
+        describe("tests on the crown controller") {
             
-            var attributes: CrownAttributes!
             var scrollView: UIScrollView!
             var contentHeightRatio: CGFloat!
-            var crownViewController: CrownSurfaceView!
-            var viewModel: CrownSurfaceController!
+            var attributes: CrownAttributes!
+            var controller: CrownSurfaceController!
             
-            // Before each test case perform a whole app initialization
+            // Before each test case perform an app initialization
             beforeEach {
                 
                 let rootViewController = self.setupRootViewController()
@@ -44,14 +44,14 @@ class CrownControlViewModelTests: QuickSpec, CrownControlDefaultSetup {
                 // Cling the bottom of the crown to the bottom of its superview with -50 offset
                 let horizontalConstraint = CrownAttributes.AxisConstraint(crownEdge: .trailing, anchorView: rootViewController.view, anchorViewEdge: .trailing, offset: -50)
                 
-                viewModel = CrownSurfaceController(attributes: attributes)
-                crownViewController = viewModel.view
-                crownViewController.layout(in: rootViewController.view, horizontalConstaint: horizontalConstraint, verticalConstraint: verticalConstraint)
+                controller = CrownSurfaceController(attributes: attributes)
+                controller.view.layout(in: rootViewController.view, horizontalConstaint: horizontalConstraint, verticalConstraint: verticalConstraint)
             }
             
             describe("tests of how user interaction affects the scroll-view content-offset") {
+                
                 it("scrolls to the trailing edge") {
-                    viewModel.performTapActionIfNeeded(.scrollsToTrailingEdge(animated: false))
+                    controller.performTapActionIfNeeded(.scrollsToTrailingEdge(animated: false))
                     let maxOffsetY = scrollView.maxContentOffset(for: attributes.scrollAxis).y
                     let maxExpectedOffsetY = scrollView.contentSize.height - scrollView.bounds.height
                     expect(maxOffsetY).to(equal(maxExpectedOffsetY))
@@ -62,14 +62,14 @@ class CrownControlViewModelTests: QuickSpec, CrownControlDefaultSetup {
                     scrollView.setContentOffset(CGPoint(x: 0, y: 100), animated: false)
                     
                     // Perform the action - scroll to leading edge so *contentOffset.y* would be 0
-                    viewModel.performTapActionIfNeeded(.scrollsToLeadingEdge(animated: false))
+                    controller.performTapActionIfNeeded(.scrollsToLeadingEdge(animated: false))
                     
                     expect(scrollView.contentOffset.y).to(equal(0))
                 }
                 
                 it("scrolls a page forward") {
                     let pageHeight = UIScreen.main.bounds.height
-                    viewModel.performTapActionIfNeeded(.scrollsToTrailingPage(animated: false))
+                    controller.performTapActionIfNeeded(.scrollsToTrailingPage(animated: false))
                     expect(scrollView.contentOffset.y).to(equal(pageHeight))
                 }
                 
@@ -78,12 +78,12 @@ class CrownControlViewModelTests: QuickSpec, CrownControlDefaultSetup {
                     let initialOffsetY = scrollView.maxContentOffset(for: attributes.scrollAxis).y
                     let expectedOffsetAfterAssertion = initialOffsetY - pageHeight
                     scrollView.setContentOffset(CGPoint(x: 0, y: initialOffsetY), animated: false)
-                    viewModel.performTapActionIfNeeded(.scrollsToLeadingPage(animated: false))
+                    controller.performTapActionIfNeeded(.scrollsToLeadingPage(animated: false))
                     expect(scrollView.contentOffset.y).to(equal(expectedOffsetAfterAssertion))
                 }
                 
                 it("scrolls forward by a constant offset") {
-                    viewModel.performTapActionIfNeeded(.scrollsForwardWithOffset(value: 10, animated: false))
+                    controller.performTapActionIfNeeded(.scrollsForwardWithOffset(value: 10, animated: false))
                     expect(scrollView.contentOffset.y).to(equal(10))
                 }
                 
@@ -91,7 +91,7 @@ class CrownControlViewModelTests: QuickSpec, CrownControlDefaultSetup {
                     let initialOffsetY: CGFloat = 50
                     let subtractedOffsetY: CGFloat = 10
                     scrollView.setContentOffset(CGPoint(x: 0, y: initialOffsetY), animated: false)
-                    viewModel.performTapActionIfNeeded(.scrollsBackwardWithOffset(value: subtractedOffsetY, animated: false))
+                    controller.performTapActionIfNeeded(.scrollsBackwardWithOffset(value: subtractedOffsetY, animated: false))
                     
                     let expectedOffsetAfterSubtraction = initialOffsetY - subtractedOffsetY
                     
@@ -100,7 +100,7 @@ class CrownControlViewModelTests: QuickSpec, CrownControlDefaultSetup {
                 
                 it("performs a custom action") {
                     var isActionPerformed = false
-                    viewModel.performTapActionIfNeeded(.custom(action: {
+                    controller.performTapActionIfNeeded(.custom(action: {
                         isActionPerformed = true
                     }))
                     expect(isActionPerformed).to(equal(true))
@@ -108,82 +108,81 @@ class CrownControlViewModelTests: QuickSpec, CrownControlDefaultSetup {
             }
             
             describe("tests of the crown foreground ability to spin") {
-                
                 it("is able to spin") {
-                    expect(viewModel.isAbleToSpin).to(beTrue())
+                    expect(controller.isAbleToSpin).to(beTrue())
                 }
             }
             
             it("superview bounds equal to the root view controller's view bounds") {
-                expect(viewModel.superviewBounds).to(equal(crownViewController.superview!.bounds))
+                expect(controller.superviewBounds).to(equal(controller.view.superview!.bounds))
             }
             
-            describe("tests of the crown surface location change directly") {
+            describe("tests of the surface location change") {
             
                 var superviewBounds: CGRect!
                 var newCenter: CGPoint!
                 
                 beforeEach {
-                    superviewBounds = viewModel.superviewBounds
+                    superviewBounds = controller.superviewBounds
                     newCenter = CGPoint(x: superviewBounds.midX, y: superviewBounds.midY)
-                    viewModel.changeCrownLocation(to: newCenter)
+                    controller.changeCrownLocation(to: newCenter)
                 }
                 
                 it("changes location if the location is legit") {
-                    expect(crownViewController.center).to(equal(newCenter))
+                    expect(controller.view.center).to(equal(newCenter))
                 }
                 
                 it("update its frame after location change") {
-                    expect(crownViewController.frame).to(equal(viewModel.crownFrame))
+                    expect(controller.view.frame).to(equal(controller.crownFrame))
                 }
                 
                 it("is within superview horizontal bounds") {
-                    let isCrownWithinHorizontalBounds = viewModel.isCrownWithinHorizontalBounds(after: 10, velocity: 1)
+                    let isCrownWithinHorizontalBounds = controller.isCrownWithinHorizontalBounds(after: 10, velocity: 1)
                     expect(isCrownWithinHorizontalBounds).to(beTrue())
                 }
                 
                 it("is isn't within superview horizontal bounds") {
-                    let isCrownWithinHorizontalBounds = viewModel.isCrownWithinHorizontalBounds(after: UIScreen.main.bounds.width, velocity: 1)
+                    let isCrownWithinHorizontalBounds = controller.isCrownWithinHorizontalBounds(after: UIScreen.main.bounds.width, velocity: 1)
                     expect(isCrownWithinHorizontalBounds).to(beFalse())
                 }
                 
                 it("is within superview vertical bounds") {
-                    let isCrownWithinHorizontalBounds = viewModel.isCrownWithinVerticalBounds(after: 10, velocity: 1)
+                    let isCrownWithinHorizontalBounds = controller.isCrownWithinVerticalBounds(after: 10, velocity: 1)
                     expect(isCrownWithinHorizontalBounds).to(beTrue())
                 }
                 
                 it("is isn't within superview vertical bounds") {
-                    let isCrownWithinHorizontalBounds = viewModel.isCrownWithinVerticalBounds(after: UIScreen.main.bounds.height, velocity: 1)
+                    let isCrownWithinHorizontalBounds = controller.isCrownWithinVerticalBounds(after: UIScreen.main.bounds.height, velocity: 1)
                     expect(isCrownWithinHorizontalBounds).to(beFalse())
                 }
             }
             
-            describe("simulation of the crown surface location change using the long press view model logic") {
-
+            describe("simulation of the surface location change using the long press controller logic") {
                 it("changes pan subject when long press begins") {
-                    viewModel.longPress(with: .began)
-                    expect(viewModel.panSubject).to(equal(.crown))
+                    controller.longPress(with: .began)
+                    expect(controller.panSubject).to(equal(.crown))
                 }
                 
                 it("changes pan subject when long press begins") {
-                    viewModel.longPress(with: .began)
-                    viewModel.longPress(with: .ended)
-                    expect(viewModel.panSubject).to(equal(.indicator))
+                    controller.longPress(with: .began)
+                    controller.longPress(with: .ended)
+                    expect(controller.panSubject).to(equal(.indicator))
                 }
                 
                 it("changes crown surface center when long press *changed* state is received") {
-                    let superviewBounds = viewModel.superviewBounds
+                    let superviewBounds = controller.superviewBounds
                     let newCenter = CGPoint(x: superviewBounds.midX, y: superviewBounds.midY)
-                    viewModel.longPress(with: .changed, location: newCenter)
-                    expect(crownViewController.center).to(equal(newCenter))
+                    controller.longPress(with: .changed, location: newCenter)
+                    expect(controller.view.center).to(equal(newCenter))
                 }
-
             }
             
             describe("simulation of force touch upon the crown surface") {
+                
                 var maxForce: CGFloat!
                 var inflationForce: CGFloat!
                 var deflationForce: CGFloat!
+                
                 beforeEach {
                     maxForce = 10
                     deflationForce = 0
@@ -195,45 +194,45 @@ class CrownControlViewModelTests: QuickSpec, CrownControlDefaultSetup {
                 }
                 
                 it("changes pan subject when force touch is applied") {
-                    viewModel.force(force: inflationForce, max: maxForce, animateIfNeeded: false)
-                    expect(viewModel.panSubject).to(equal(.crown))
+                    controller.force(force: inflationForce, max: maxForce, animateIfNeeded: false)
+                    expect(controller.panSubject).to(equal(.crown))
                 }
                 
                 it("changes pan subject when force touch is removed") {
-                    viewModel.force(force: inflationForce, max: maxForce, animateIfNeeded: false)
-                    viewModel.force(force: deflationForce, max: maxForce, animateIfNeeded: false)
-                    expect(viewModel.panSubject).to(equal(.indicator))
+                    controller.force(force: inflationForce, max: maxForce, animateIfNeeded: false)
+                    controller.force(force: deflationForce, max: maxForce, animateIfNeeded: false)
+                    expect(controller.panSubject).to(equal(.indicator))
                 }
             }
             
-            describe("simulation of the crown foreground location change using the pan view model logic") {
+            describe("simulation of the crown foreground location change using the controller logic") {
                 var foregroundView: UIView!
                 beforeEach {
-                    foregroundView = crownViewController.indicatorView
+                    foregroundView = controller.view.indicatorView
                 }
                 
                 it("responds to pan in *began* state") {
-                    let crownFrameBeforeAction = viewModel.crownFrame
-                    viewModel.pan(foregroundView: foregroundView, with: .began)
-                    expect(crownFrameBeforeAction).to(equal(viewModel.crownFrame))
+                    let crownFrameBeforeAction = controller.crownFrame
+                    controller.pan(foregroundView: foregroundView, with: .began)
+                    expect(crownFrameBeforeAction).to(equal(controller.crownFrame))
                 }
                 
                 it("responds to pan in *ended* state") {
-                    let crownFrameBeforeAction = viewModel.crownFrame
-                    viewModel.pan(foregroundView: foregroundView, with: .ended)
-                    expect(crownFrameBeforeAction).to(equal(viewModel.crownFrame))
+                    let crownFrameBeforeAction = controller.crownFrame
+                    controller.pan(foregroundView: foregroundView, with: .ended)
+                    expect(crownFrameBeforeAction).to(equal(controller.crownFrame))
                 }
                 
                 it("responds to pan in *changed* state - pan left") {
                     let translation = CGPoint(x: .min, y: 0)
-                    viewModel.pan(foregroundView: foregroundView, with: .changed, translation: translation, enforceEdgeNormalization: false)
-                    expect(viewModel.currentForegroundAngle).to(equal(.pi))
+                    controller.pan(foregroundView: foregroundView, with: .changed, translation: translation, enforceEdgeNormalization: false)
+                    expect(controller.currentForegroundAngle).to(equal(.pi))
                 }
                 
                 it("responds to pan in *changed* state - pan downward") {
                     let translation = CGPoint(x: 0, y: .max)
-                    viewModel.pan(foregroundView: foregroundView, with: .changed, translation: translation, enforceEdgeNormalization: false)
-                    expect(viewModel.currentForegroundAngle).to(equal(.pi * 0.5))
+                    controller.pan(foregroundView: foregroundView, with: .changed, translation: translation, enforceEdgeNormalization: false)
+                    expect(controller.currentForegroundAngle).to(equal(.pi * 0.5))
                 }
             }
         }

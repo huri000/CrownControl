@@ -96,29 +96,29 @@ In your view controller:
 
 ```Swift
 
-var crownViewController: CrownIndicatorViewController!
+var crownControl: CrownControl!
 var scrollView: UIScrollView!
 
 private func setupCrownViewController() {
-    var attributes = CrownAttributes(scrollView: scrollView, scrollAxis: .vertical)
-    crownViewController = CrownIndicatorViewController(with: attributes)
+    let attributes = CrownAttributes(scrollView: scrollView, scrollAxis: .vertical)
     
     // Cling the bottom of the crown to the bottom of a view with -50 offset
     let verticalConstraint = CrownAttributes.AxisConstraint(crownEdge: .bottom, anchorView: view, anchorViewEdge: .bottom, offset: -50)
     
     // Cling the trailing edge of the crown to the trailing edge of a view with -50 offset
     let horizontalConstraint = CrownAttributes.AxisConstraint(crownEdge: .trailing, anchorView: tableView, anchorViewEdge: .trailing, offset: -50)
-    
-    crownViewController.layout(in: self, horizontalConstaint: horizontalConstraint, verticalConstraint: verticalConstraint)
+
+    // Setup the crown control within *self*
+    crownControl = CrownControl(attributes: attributes, delegate: self)
+    crownControl.layout(in: view, horizontalConstaint: horizontalConstraint, verticalConstraint: verticalConstraint)
 }
 ```
 
-To make the crown respond to scrolling events that emanates from any other invoker but the crown, add to `scrollViewDidScroll(_:)` the following (depending on the scroll axis, replace `y` with `x`, and `height` with `width`):
+To make the crown respond to scrolling events that emanates from any other invoker but the crown, add to `scrollViewDidScroll(_:)` the following:
 
 ```Swift
 func scrollViewDidScroll(_ scrollView: UIScrollView) {
-    let xOffset = collectionView.contentOffset.y / (collectionView.contentSize.height - collectionView.bounds.height)
-    crownViewController?.spin(to: xOffset)
+    crownControl?.spinToMatchScrollViewOffset()
 }
 ```
 

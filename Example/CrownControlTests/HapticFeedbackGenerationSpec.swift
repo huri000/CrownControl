@@ -1,5 +1,5 @@
 //
-//  HapticFeedbackGenerationTests.swift
+//  HapticFeedbackGenerationSpec.swift
 //  CrownControlTests
 //
 //  Created by Daniel Huri on 12/1/18.
@@ -10,7 +10,7 @@ import Quick
 import Nimble
 @testable import CrownControl
 
-class HapticFeedbackGenerationTests: QuickSpec {
+class HapticFeedbackGenerationSpec: QuickSpec {
     
     override func spec() {
         describe("simulation of haptic feedback test logic") {

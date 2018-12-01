@@ -1,5 +1,5 @@
 //
-//  CrownControlTests.swift
+//  CrownControlSpec.swift
 //  CrownControlTests
 //
 //  Created by Daniel Huri on 12/1/18.
@@ -10,7 +10,8 @@ import Quick
 import Nimble
 @testable import CrownControl
 
-class CrownControlTests: QuickSpec, CrownControlDefaultSetup {
+// Tests the public / open APIs
+class CrownControlSpec: QuickSpec, CrownControlDefaultSetup {
 
     override func spec() {
         describe("test crown control external api") {

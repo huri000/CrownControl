@@ -1,4 +1,10 @@
-// https://github.com/Quick/Quick
+//
+//  CrownAttributesSpec.swift
+//  CrownControlTests
+//
+//  Created by Daniel Huri on 11/28/18.
+//  Copyright © 2018 Daniel Huri. All rights reserved.
+//
 
 import Quick
 import Nimble
@@ -6,33 +12,32 @@ import Nimble
 
 class CrownAttributesSpec: QuickSpec {
     override func spec() {
-        describe("testing of crown attributes internal behavior") {
+        describe("tests of the crown attributes internal behavior") {
             var scrollView: UIScrollView!
             var attributes: CrownAttributes!
             
             beforeEach {
-                // INstantiate the scroll-view
                 scrollView = UIScrollView(frame: UIScreen.main.bounds)
                 attributes = CrownAttributes(scrollView: scrollView, scrollAxis: .vertical)
             }
             
             context("anchor position") {
-                it("right value is 0 in radians") {
+                it("has value of 0 in radians, when the position is *right*") {
                     attributes.anchorPosition = .right
                     expect(attributes.anchorPosition.radians).to(equal(0))
                 }
                 
-                it("bottom value is pi/2 in radians") {
+                it("has value of pi/2 in radians, when the position is *bottom*") {
                     attributes.anchorPosition = .bottom
                     expect(attributes.anchorPosition.radians).to(equal(.pi / 2))
                 }
                 
-                it("left value is .pi in radians") {
+                it("has value of pi in radians, when the position is *left*") {
                     attributes.anchorPosition = .left
                     expect(attributes.anchorPosition.radians).to(equal(.pi))
                 }
                 
-                it("top value is .pi*1.5 in radians") {
+                it("has value of pi * 1.5 in radians, when the position is *top*") {
                     attributes.anchorPosition = .top
                     expect(attributes.anchorPosition.radians).to(equal(.pi * 1.5))
                 }
@@ -51,7 +56,7 @@ class CrownAttributesSpec: QuickSpec {
             }
             
             context("scroll view") {
-                it("has a scroll view upon initialization") {
+                it("has a valid scroll view after initialization") {
                     expect(attributes.scrollView).toNot(beNil())
                 }
             }
@@ -88,17 +93,20 @@ class CrownAttributesSpec: QuickSpec {
             }
             
             context("user interaction") {
-                it("is interactable if needed") {
-                    attributes.userInteraction.doubleTap = .scrollsToTrailingEdge(animated: false)
-                    expect(attributes.userInteraction.doubleTap.isInteractable).to(beTrue())
+                
+                describe("double tap interaction") {
+                    it("is interactable if needed") {
+                        attributes.userInteraction.doubleTap = .scrollsToTrailingEdge(animated: false)
+                        expect(attributes.userInteraction.doubleTap.isInteractable).to(beTrue())
+                    }
+                    
+                    it("is not interactable if needed") {
+                        attributes.userInteraction.doubleTap = .none
+                        expect(attributes.userInteraction.doubleTap.isInteractable).to(beFalse())
+                    }
                 }
                 
-                it("is not interactable if needed") {
-                    attributes.userInteraction.doubleTap = .none
-                    expect(attributes.userInteraction.doubleTap.isInteractable).to(beFalse())
-                }
-                
-                describe("long press") {
+                describe("long press interaction") {
                     beforeEach {
                         var longPressAttributes = CrownAttributes.UserInteraction.RepositionGesture.Attributes.LongPress()
                         longPressAttributes.minimalDuration = 1
@@ -118,7 +126,7 @@ class CrownAttributesSpec: QuickSpec {
                     }
                 }
                 
-                describe("force touch") {
+                describe("force touch interaction") {
                     beforeEach {
                         attributes.userInteraction.repositionGesture = .prefersForceTouch(attributes: .init())
                     }
