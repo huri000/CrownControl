@@ -90,9 +90,8 @@ Using `CrownControl` is really simple.
 In your view controller:
 
 1. Define and bind `CrownAttributes` to a scroll view instance, and optionally customize the attributes.
-2. Instantiate and bind `CrownIndicatorViewController` instance to the `CrownAttributes` instance.
-3. Define the crown view controller constraints.
-4. Layout the crown view controller in its parent.
+2. Instantiate and bind the `CrownControl` instance to the `CrownAttributes` instance.
+3. Setup the `CrownControl` instance in its superview.
 
 ```Swift
 
