@@ -44,9 +44,9 @@ class CrownControlViewModelTests: QuickSpec, CrownControlDefaultSetup {
                 // Cling the bottom of the crown to the bottom of its superview with -50 offset
                 let horizontalConstraint = CrownAttributes.AxisConstraint(crownEdge: .trailing, anchorView: rootViewController.view, anchorViewEdge: .trailing, offset: -50)
                 
-                crownViewController = CrownIndicatorView(with: attributes)
+                viewModel = CrownSurfaceController(attributes: attributes)
+                crownViewController = viewModel.view
                 crownViewController.layout(in: rootViewController.view, horizontalConstaint: horizontalConstraint, verticalConstraint: verticalConstraint)
-                viewModel = crownViewController.viewModel
             }
             
             describe("tests of how user interaction affects the scroll-view content-offset") {
@@ -115,7 +115,7 @@ class CrownControlViewModelTests: QuickSpec, CrownControlDefaultSetup {
             }
             
             it("superview bounds equal to the root view controller's view bounds") {
-                expect(viewModel.superviewBounds).to(equal(crownViewController.view.superview!.bounds))
+                expect(viewModel.superviewBounds).to(equal(crownViewController.superview!.bounds))
             }
             
             describe("tests of the crown surface location change directly") {
@@ -130,11 +130,11 @@ class CrownControlViewModelTests: QuickSpec, CrownControlDefaultSetup {
                 }
                 
                 it("changes location if the location is legit") {
-                    expect(crownViewController.view.center).to(equal(newCenter))
+                    expect(crownViewController.center).to(equal(newCenter))
                 }
                 
                 it("update its frame after location change") {
-                    expect(crownViewController.view.frame).to(equal(viewModel.crownFrame))
+                    expect(crownViewController.frame).to(equal(viewModel.crownFrame))
                 }
                 
                 it("is within superview horizontal bounds") {
@@ -175,7 +175,7 @@ class CrownControlViewModelTests: QuickSpec, CrownControlDefaultSetup {
                     let superviewBounds = viewModel.superviewBounds
                     let newCenter = CGPoint(x: superviewBounds.midX, y: superviewBounds.midY)
                     viewModel.longPress(with: .changed, location: newCenter)
-                    expect(crownViewController.view.center).to(equal(newCenter))
+                    expect(crownViewController.center).to(equal(newCenter))
                 }
 
             }

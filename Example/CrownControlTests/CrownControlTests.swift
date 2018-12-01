@@ -44,7 +44,7 @@ class CrownControlTests: QuickSpec, CrownControlDefaultSetup {
                 let horizontalConstraint = CrownAttributes.AxisConstraint(crownEdge: .trailing, anchorView: rootViewController.view, anchorViewEdge: .trailing, offset: -50)
                 
                 crownControl = CrownControl(attributes: attributes)
-                crownControl.layout(in: rootViewController, horizontalConstaint: horizontalConstraint, verticalConstraint: verticalConstraint)
+                crownControl.layout(in: rootViewController.view, horizontalConstaint: horizontalConstraint, verticalConstraint: verticalConstraint)
             }
             
             it("test the spinning of the crown and progress correspond with one another on 0 progress") {
