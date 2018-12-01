@@ -117,4 +117,20 @@ extension ContactsViewController: UITableViewDataSource, UITableViewDelegate {
 
 // MARK: - CrownDelegate
 
-extension ContactsViewController: CrownControlDelegate {}
+extension ContactsViewController: CrownControlDelegate {
+    func crownDidBeginSpinning(_ crownControl: CrownControl) {
+        print("\(#function)")
+    }
+    
+    func crownDidEndSpinning(_ crownControl: CrownControl) {
+        print("\(#function)")
+    }
+    
+    func crown(_ crownControl: CrownControl, didUpdate progress: CGFloat) {
+        print("\(#function) with progress: \(progress)")
+    }
+    
+    func crown(_ crownControl: CrownControl, willUpdate progress: CGFloat) {
+        print("\(#function) with progress: \(progress)")
+    }
+}

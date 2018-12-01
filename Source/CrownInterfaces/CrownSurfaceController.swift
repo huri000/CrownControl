@@ -84,8 +84,9 @@ class CrownSurfaceController {
     
     // MARK: - Setup
     
-    init(attributes: CrownAttributes, delegate: CrownControlDelegate? = nil) {
+    init(attributes: CrownAttributes, delegate: CrownFunctionalDelegate? = nil) {
         self.attributes = attributes
+        self.delegate = delegate
         currentForegroundAngle = attributes.anchorPosition.radians
         previousForegroundAngle = currentForegroundAngle
         crownAnchorPoint = attributes.sizes.crownCenter

@@ -1,7 +1,9 @@
 coverage:
   status:
-    project: off
-    patch: off
+    project:
+      default:
+        target: 70%
+        threshold: 7%
   ignore:
     - cmake-debug-build/*
     - Example/*
@@ -15,4 +17,3 @@ coverage:
     - build/*
     - .build/*
     - .vagrant/*
-

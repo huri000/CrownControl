@@ -13,7 +13,7 @@ public class CrownControl {
     // MARK: - Properties
     
     /** The crown surface controller */
-    private let crownSurfaceController: CrownSurfaceController
+    private var crownSurfaceController: CrownSurfaceController!
     
     /** Transmits the information about the crown progress*/
     private weak var delegate: CrownControlDelegate!
@@ -30,11 +30,15 @@ public class CrownControl {
     
     // MARK: - Setup
 
+    /**
+     Initializer of the crown controller
+     - parameter attributes: The crown attributes.
+     - parameter delegate: The delegate to which events are sent.
+     */
     public init(attributes: CrownAttributes, delegate: CrownControlDelegate? = nil) {
-        crownSurfaceController = CrownSurfaceController(attributes: attributes, delegate: delegate)
+        self.delegate = delegate
+        crownSurfaceController = CrownSurfaceController(attributes: attributes, delegate: self)
     }
-    
-    // MARK: - Exposed
     
     /**
      Add the crown view controller as a child of a parent view controller and layout it vertically and horizontally.
@@ -45,6 +49,8 @@ public class CrownControl {
     public func layout(in superview: UIView, horizontalConstaint: CrownAttributes.AxisConstraint, verticalConstraint: CrownAttributes.AxisConstraint) {
         crownSurfaceController.view.layout(in: superview, horizontalConstaint: horizontalConstaint, verticalConstraint: verticalConstraint)
     }
+    
+    // MARK: - Spin
     
     /**
      Spins the crown's foreground to a given progress in the range of [0...1].
