@@ -22,6 +22,7 @@
 		0D9F1FA5DF6C1402857B3666C756C619 /* HaveValidSnapshot.swift in Sources */ = {isa = PBXBuildFile; fileRef = F473B6499F274F58A30E6A1771DC95EE /* HaveValidSnapshot.swift */; };
 		12BE5C32D662F712B29BEE6F1F6E27B6 /* World.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31A1944EE351FD6139575D49416C4E31 /* World.swift */; };
 		14096EB521B17CFA00464A24 /* CrownAttributesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14096EB421B17CFA00464A24 /* CrownAttributesViewModel.swift */; };
+		14096EB721B272FD00464A24 /* CrownControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14096EB621B272FD00464A24 /* CrownControl.swift */; };
 		15CE87A5A5AD062B365A107DFC9F1202 /* QLCompatibility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C6796B93B23DF2AB2C001D3EC119E85 /* QLCompatibility.swift */; };
 		1618032B638206409798108F243AD8F5 /* ExampleMetadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91C3B4AD1C859124F9F6B743B2D84F54 /* ExampleMetadata.swift */; };
 		17E51AFDFDBA721468B3B487578152C4 /* iOSSnapshotTestCase-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = DF6F4E846FE33690D75433F07264714A /* iOSSnapshotTestCase-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -290,6 +291,7 @@
 		127A6CE9C697EEA07DC0086E2974E658 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		139A124BA39ADBDEA0A8F3D8A2ABFE4B /* FBSnapshotTestCasePlatform.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FBSnapshotTestCasePlatform.h; path = FBSnapshotTestCase/FBSnapshotTestCasePlatform.h; sourceTree = "<group>"; };
 		14096EB421B17CFA00464A24 /* CrownAttributesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrownAttributesViewModel.swift; sourceTree = "<group>"; };
+		14096EB621B272FD00464A24 /* CrownControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrownControl.swift; sourceTree = "<group>"; };
 		14EC99900E2C8AB3EF51603E70856254 /* UIImage+Snapshot.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UIImage+Snapshot.h"; path = "FBSnapshotTestCase/Categories/UIImage+Snapshot.h"; sourceTree = "<group>"; };
 		1573349B4B9101D1EB43F218471F1317 /* PrettyDynamicTypeSyntax.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PrettyDynamicTypeSyntax.swift; path = DynamicType/PrettyDynamicTypeSyntax.swift; sourceTree = "<group>"; };
 		1650B4E7DABD1204F358FC2B8C94F9FB /* UIScrollView+Utils.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "UIScrollView+Utils.swift"; sourceTree = "<group>"; };
@@ -957,6 +959,7 @@
 		BF8666CF17525CB5B4B1A19C5BDFFECC /* CrownInterfaces */ = {
 			isa = PBXGroup;
 			children = (
+				14096EB621B272FD00464A24 /* CrownControl.swift */,
 				52B18D7438AE87FF9B0085C2ECA658B5 /* CrownDelegate.swift */,
 				C52C990C745FCCDD8341B085B9314FA5 /* CrownIndicatorViewController.swift */,
 				A97107B7B357E331ADBB104CA8802B3B /* CrownViewController.swift */,
@@ -1551,6 +1554,7 @@
 				17EB7CE1562E7617E65B984313D1463D /* CrownDelegate.swift in Sources */,
 				E7684988692885210CC2C66AB9497A5B /* CrownIndicatorViewController.swift in Sources */,
 				529DEB2F4C0DFD18090F7318A8954744 /* CrownViewController.swift in Sources */,
+				14096EB721B272FD00464A24 /* CrownControl.swift in Sources */,
 				687DBBD3F8E29D9E151F3F45276EC4C1 /* GradientView.swift in Sources */,
 				ADA6F9D5B3E5671D184CD8E473B52DFD /* HapticFeedbackGenerator.swift in Sources */,
 				8B85561D74A977E8264A08A4CB1C5283 /* PinIndicatorView.swift in Sources */,

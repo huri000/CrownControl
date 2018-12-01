@@ -10,6 +10,19 @@ import UIKit
 
 extension UIScrollView {
     
+    func progress(by axis: CrownAttributes.ScrollAxis) -> CGFloat {
+        var offset: CGFloat = 0
+        switch axis {
+        case .vertical where contentSize.height > bounds.height:
+            offset = contentOffset.y / (contentSize.height - bounds.height)
+        case .horizontal where contentSize.width > bounds.width:
+            offset = contentOffset.x / (contentSize.width - bounds.width)
+        default:
+            break
+        }
+        return offset
+    }
+    
     func scrollToLeadingEdge(using axis: CrownAttributes.ScrollAxis, animated: Bool = true) {
         let point: CGPoint
         switch axis {

@@ -8,7 +8,7 @@
 import Foundation
 
 /** Delegate for crown spin events */
-public protocol CrownDelegate: class {
+public protocol CrownControlDelegate: class {
     
     /** Called after the crown begins spinning */
     func crownDidBeginSpinning(_ crownViewController: CrownViewController)
@@ -24,7 +24,7 @@ public protocol CrownDelegate: class {
 }
 
 /** Default empty implementation of the crown delegation methods */
-public extension CrownDelegate {
+public extension CrownControlDelegate {
     func crownDidBeginSpinning(_ crownViewController: CrownViewController) {}
     func crownDidEndSpinning(_ crownViewController: CrownViewController) {}
     func crown(_ crownViewController: CrownViewController, didUpdate progress: CGFloat) {}

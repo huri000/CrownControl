@@ -7,6 +7,14 @@
 
 import Foundation
 
+protocol CrownAttributesViewModelDelegate: class {
+    func peformForegroundTranslation()
+    func crownDidBeginSpinning()
+    func crownDidEndSpinning()
+    func crownWillUpdate()
+    func crownDidUpdate()
+}
+
 /** This construct's purpose is using CrownAttributes instance to peform actions in the name of the controller itself */
 class CrownAttributesViewModel {
     
@@ -37,14 +45,19 @@ class CrownAttributesViewModel {
         }
     }
 
+    private var isAutoSpinEnabled = false
+
     // MARK: - Poperties
     
     private let attributes: CrownAttributes
     
+    private unowned let delegate: CrownAttributesViewModelDelegate
+    
     let crownAnchorPoint: CGPoint
     
     private(set) lazy var view: UIView = {
-        return UIView()
+        let frame = CGRect(origin: .zero, size: attributes.sizes.backgroundSurfaceSquareSize)
+        return UIView(frame: frame)
     }()
     
     // Syntactic sugar for accessing the scroll view
@@ -52,8 +65,14 @@ class CrownAttributesViewModel {
         return attributes.scrollView
     }
     
+    // Returns *true* if force touch is available
     var isForceTouchAvailable: Bool {
         return view.traitCollection.forceTouchCapability == .available && attributes.userInteraction.repositionGesture.isForceTouch
+    }
+    
+    // Returns *true* if long press should be applied to the crown surface
+    var shouldLongPressBeApplied: Bool {
+        return !isForceTouchAvailable && attributes.userInteraction.repositionGesture.isLongPress
     }
     
     /** The progress of the foreground indicator */
@@ -62,10 +81,15 @@ class CrownAttributesViewModel {
     var previousForegroundAngle: CGFloat = 0
     var currentForegroundAngle: CGFloat = 0
     
+    var angleByProgress: CGFloat {
+        return progress * attributes.sizes.maximumAngleInRadian + attributes.anchorPosition.radians
+    }
+    
     // MARK: - Setup
     
-    init(using attributes: CrownAttributes) {
+    init(using attributes: CrownAttributes, delegate: CrownAttributesViewModelDelegate) {
         self.attributes = attributes
+        self.delegate = delegate
         currentForegroundAngle = attributes.anchorPosition.radians
         previousForegroundAngle = currentForegroundAngle
         crownAnchorPoint = attributes.sizes.crownCenter
@@ -227,6 +251,19 @@ extension CrownAttributesViewModel {
         }
     }
     
+    /** Update progress of foreground to match its angle */
+    func updateProgressToMatchAngle() {
+        progress = (currentForegroundAngle - attributes.anchorPosition.radians) / attributes.sizes.maximumAngleInRadian
+    }
+    
+    func updatePreviousForegroundAngleToMatchCurrent() {
+        previousForegroundAngle = currentForegroundAngle
+    }
+    
+    func updateCurrentAngleToMatchProgress() {
+        currentForegroundAngle = angleByProgress
+    }
+    
     /** Updates the scroll-view offset in accordance with the progress and the scroll axis */
     func updateScrollViewOffset() {
         guard let scrollView = scrollView else {
@@ -272,6 +309,45 @@ extension CrownAttributesViewModel {
 
 extension CrownAttributesViewModel {
 
+    /** Simulate panning of the foreground view by pan gesture state and a given translation */
+    func pan(foregroundView: UIView, with state: UIGestureRecognizer.State, translation: CGPoint) {
+        switch state {
+        case .began:
+            delegate.crownDidBeginSpinning()
+        case .changed where isAbleToSpin:
+            
+            isAutoSpinEnabled = true
+            
+            // Inform delegate pre update
+            delegate.crownWillUpdate()
+            
+            // Update current angle
+            currentForegroundAngle = angle(of: foregroundView, by: foregroundView.center + translation)
+            
+            // Make the translation
+            delegate.peformForegroundTranslation()
+            
+            // Update progress
+            updateProgressToMatchAngle()
+            
+            // Update scroll view offset by progress
+            updateScrollViewOffset()
+            
+            // Update delegate after the progress update
+            delegate.crownDidUpdate()
+            
+            // Update previous angle
+            updatePreviousForegroundAngleToMatchCurrent()
+            
+            isAutoSpinEnabled = false
+            
+        case .cancelled, .ended, .failed:
+            delegate.crownDidEndSpinning()
+        default:
+            break
+        }
+    }
+    
     /** Simulate long press of the crown surface */
     func longPress(with state: UIGestureRecognizer.State, location: CGPoint) {
         switch state {
@@ -288,6 +364,7 @@ extension CrownAttributesViewModel {
         }
     }
     
+    /** Simulate force touch upon the crown surface */
     func force(force: CGFloat, max: CGFloat) {
         guard isForceTouchAvailable else {
             return
@@ -323,4 +400,23 @@ extension CrownAttributesViewModel {
         }
     }
     
+    /** Spins the crown foreground to a given progress */
+    func spin(to progress: CGFloat) {
+        guard !isAutoSpinEnabled else {
+            return
+        }
+        self.progress = progress
+        updateCurrentAngleToMatchProgress()
+        delegate.peformForegroundTranslation()
+        updatePreviousForegroundAngleToMatchCurrent()
+    }
+    
+    // Spin the crown foreground to match the scroll view offset
+    func spinToMatchScrollViewOffset() {
+        guard let scrollView = scrollView else {
+            return
+        }
+        let progress = scrollView.progress(by: attributes.scrollAxis)
+        spin(to: progress)
+    }
 }

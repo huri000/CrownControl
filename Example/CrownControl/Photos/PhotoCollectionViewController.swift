@@ -15,7 +15,7 @@ class PhotoCollectionViewController: UIViewController {
     
     @IBOutlet private weak var collectionView: UICollectionView!
     
-    private var crownViewController: CrownViewController!
+    private var crownControl: CrownControl!
 
     private var dataSource: [PhotoData] = []
     
@@ -53,15 +53,14 @@ class PhotoCollectionViewController: UIViewController {
         attributes.foregroundStyle.shadow = .none
         attributes.sizes.scrollRelation = CGFloat(dataSource.count) * 0.5
         
-        crownViewController = CrownIndicatorViewController(with: attributes, delegate: self)
-        
         // Cling the bottom of the crown to the bottom of the web view with -35 offset
         let verticalConstraint = CrownAttributes.AxisConstraint(crownEdge: .bottom, anchorView: view, anchorViewEdge: .bottom, offset: -70)
         
         // Cling the bottom of the crown to the bottom of its superview with -50 offset
         let horizontalConstraint = CrownAttributes.AxisConstraint(crownEdge: .centerX, anchorView: view, anchorViewEdge: .centerX)
         
-        crownViewController.layout(in: self, horizontalConstaint: horizontalConstraint, verticalConstraint: verticalConstraint)
+        crownControl = CrownControl(attributes: attributes)
+        crownControl.layout(in: self, horizontalConstaint: horizontalConstraint, verticalConstraint: verticalConstraint)
     }
     
     private func loadData() {
@@ -110,11 +109,6 @@ extension PhotoCollectionViewController: UICollectionViewDataSource, UICollectio
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        let xOffset = collectionView.contentOffset.x / (collectionView.contentSize.width - collectionView.bounds.width)
-        crownViewController?.spin(to: xOffset)
+        crownControl?.spinToMatchScrollViewOffset()
     }
 }
-
-// MARK: - CrownDelegate
-
-extension PhotoCollectionViewController: CrownDelegate {}

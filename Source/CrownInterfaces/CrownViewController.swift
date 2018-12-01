@@ -13,9 +13,7 @@ import QuickLayout
 public class CrownViewController: UIViewController {
 
     // Delegate for the crown spin events
-    private weak var delegate: CrownDelegate!
-        
-    private var lockPanGesture = false
+    private weak var delegate: CrownControlDelegate!
     
     var indicatorView: UIView {
         preconditionFailure("\(#function) be overridden by subclass")
@@ -42,7 +40,7 @@ public class CrownViewController: UIViewController {
                 
     // The crown attributes descriptor
     let attributes: CrownAttributes
-    let viewModel: CrownAttributesViewModel
+    var viewModel: CrownAttributesViewModel!
     
     // MARK: UI Elements
     
@@ -55,11 +53,11 @@ public class CrownViewController: UIViewController {
     
     // MARK: - Lifecycle
     
-    public init(with attributes: CrownAttributes, delegate: CrownDelegate? = nil) {
+    public init(with attributes: CrownAttributes, delegate: CrownControlDelegate? = nil) {
         self.attributes = attributes
         self.delegate = delegate
-        viewModel = CrownAttributesViewModel(using: attributes)
         super.init(nibName: nil, bundle: nil)
+        viewModel = CrownAttributesViewModel(using: attributes, delegate: self)
     }
     
     public required init?(coder aDecoder: NSCoder) {
@@ -68,7 +66,6 @@ public class CrownViewController: UIViewController {
     
     public override func loadView() {
         view = viewModel.view
-        view.frame = CGRect(origin: .zero, size: attributes.sizes.backgroundSurfaceSquareSize)
         view.addSubview(contentView)
         view.isExclusiveTouch = true
         
@@ -105,7 +102,7 @@ public class CrownViewController: UIViewController {
             view.addGestureRecognizer(singleTapGestureRecognizer)
         }
         
-        if !viewModel.isForceTouchAvailable && attributes.userInteraction.repositionGesture.isLongPress {
+        if viewModel.shouldLongPressBeApplied {
             longPressGestureRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(longPressGestureRecognized))
             longPressGestureRecognizer.minimumPressDuration = attributes.userInteraction.repositionGesture.longPressDuration
             view.addGestureRecognizer(longPressGestureRecognizer)
@@ -138,7 +135,7 @@ public class CrownViewController: UIViewController {
     @objc private func panGestureRecognized(_ gestureRecognizer: UIPanGestureRecognizer) {
         switch (viewModel.panSubject, attributes.userInteraction.repositionGesture.isForceTouch) {
         case (.indicator, _):
-            panIndicator(using: gestureRecognizer)
+            panForeground(using: gestureRecognizer)
         case (.crown, true):
             panCrownSurface(using: gestureRecognizer)
         default:
@@ -193,57 +190,16 @@ public class CrownViewController: UIViewController {
         }
     }
     
-    private func panIndicator(using gestureRecognizer: UIPanGestureRecognizer) {
+    private func panForeground(using gestureRecognizer: UIPanGestureRecognizer) {
         guard let superview = view.superview else {
             return
         }
         let state = gestureRecognizer.state
-        switch state {
-        case .began:
-            delegate?.crownDidBeginSpinning(self)
-        case .changed:
-            let translation = gestureRecognizer.translation(in: superview)
-            defer {
-                gestureRecognizer.setTranslation(.zero, in: superview)
-            }
-            
-            guard viewModel.isAbleToSpin else {
-                return
-            }
-            
-            lockPanGesture = true
-            
-            // Update current angle
-            viewModel.currentForegroundAngle = viewModel.angle(of: indicatorView, by: indicatorView.center + translation)
-            
-            // Inform delegate pre update
-            delegate?.crown(self, willUpdate: viewModel.progress)
-            
-            // Make the translation
-            translate()
-            
-            // Update progress
-            viewModel.progress = (currentForegroundAngle - attributes.anchorPosition.radians) / attributes.sizes.maximumAngleInRadian
-            
-            // Update scroll view offset by progress
-            viewModel.updateScrollViewOffset()
-            
-            // Update delegate after the progress update
-            delegate?.crown(self, didUpdate: viewModel.progress)
-            
-            // Generate haptic feedback
-            generateEdgeFeedbackIfNecessary()
-            
-            // Update previous angle
-            viewModel.previousForegroundAngle = viewModel.currentForegroundAngle
-            
-            lockPanGesture = false
-            
-        case .cancelled, .ended, .failed:
-            delegate?.crownDidEndSpinning(self)
-        case .possible:
-            break
+        let translation = gestureRecognizer.translation(in: superview)
+        defer {
+            gestureRecognizer.setTranslation(.zero, in: superview)
         }
+        viewModel.pan(foregroundView: indicatorView, with: state, translation: translation)
     }
     
     // MARK: - Feedback Generation
@@ -261,10 +217,6 @@ public class CrownViewController: UIViewController {
         backgroundView.flash(with: edgeFeedback.backgroundFlash)
     }
     
-    func translate() {
-        preconditionFailure("Must be implemented by subclass")
-    }
-  
     // MARK: - UIResponder
     
     public override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -309,15 +261,13 @@ public class CrownViewController: UIViewController {
         verticalConstraint = view.layout(edge, to: otherEdge, of: otherView, offset: offset, priority: .must)
     }
     
-    // MARK: - Exposed
-    
     /**
      Add the crown view controller as a child of a parent view controller and layout it vertically and horizontally.
      - parameter parent: A parent view controller.
      - parameter horizontalConstaint: Horizontal constraint construct.
      - parameter verticalConstraint: Vertical constraint construct.
      */
-    public func layout(in parent: UIViewController, horizontalConstaint: CrownAttributes.AxisConstraint, verticalConstraint: CrownAttributes.AxisConstraint) {
+    func layout(in parent: UIViewController, horizontalConstaint: CrownAttributes.AxisConstraint, verticalConstraint: CrownAttributes.AxisConstraint) {
         parent.addChild(self)
         parent.view.addSubview(view)
         layoutHorizontally(horizontalConstaint.crownEdge, to: horizontalConstaint.anchorViewEdge, of: horizontalConstaint.anchorView, offset: horizontalConstaint.offset)
@@ -328,13 +278,39 @@ public class CrownViewController: UIViewController {
      Spins the crown's foreground to a given progress in the range of [0...1].
      - parameter progress: The progress of the spin from 0 to 1. Reflects the offset in the bound scroll view.
      */
-    public func spin(to progress: CGFloat) {
-        guard !lockPanGesture else {
-            return
-        }
-        viewModel.currentForegroundAngle = progress * attributes.sizes.maximumAngleInRadian + attributes.anchorPosition.radians
-        viewModel.progress = progress
-        translate()
-        viewModel.previousForegroundAngle = viewModel.currentForegroundAngle
+    func spin(to progress: CGFloat) {
+        viewModel.spin(to: progress)
+    }
+    
+    func spinToMatchScrollViewOffset() {
+        viewModel.spinToMatchScrollViewOffset()
+    }
+    
+    func peformForegroundTranslation() {
+        preconditionFailure("Must be implemented by subclass")
+    }
+}
+
+// MARK: CrownAttributesViewModelDelegate
+
+extension CrownViewController: CrownAttributesViewModelDelegate {
+    
+    func crownDidBeginSpinning() {
+        delegate?.crownDidBeginSpinning(self)
+    }
+    
+    func crownDidEndSpinning() {
+        delegate?.crownDidEndSpinning(self)
+    }
+    
+    func crownWillUpdate() {
+        delegate?.crown(self, willUpdate: viewModel.progress)
+    }
+    
+    func crownDidUpdate() {
+        // Generate haptic feedback if needed
+        generateEdgeFeedbackIfNecessary()
+        
+        delegate?.crown(self, didUpdate: viewModel.progress)
     }
 }

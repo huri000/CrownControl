@@ -33,7 +33,7 @@ public class CrownIndicatorViewController: CrownViewController {
     public override func viewDidLoad() {
         super.viewDidLoad()
         DispatchQueue.main.async {
-            self.translate()
+            self.peformForegroundTranslation()
         }
     }
     
@@ -46,7 +46,7 @@ public class CrownIndicatorViewController: CrownViewController {
     
     // MARK: - Calculation Accessors
     
-    override func translate() {
+    override func peformForegroundTranslation() {
         pinIndicatorView.center = viewModel.calculateForegroundCenter(by: attributes.sizes.innerCircleEdgeSize * 0.5, angle: currentForegroundAngle)
     }
 }
