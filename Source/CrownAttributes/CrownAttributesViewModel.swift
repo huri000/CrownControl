@@ -78,8 +78,8 @@ class CrownAttributesViewModel {
     /** The progress of the foreground indicator */
     public var progress: CGFloat = 0
     
-    var previousForegroundAngle: CGFloat = 0
-    var currentForegroundAngle: CGFloat = 0
+    private(set) var previousForegroundAngle: CGFloat = 0
+    private(set) var currentForegroundAngle: CGFloat = 0
     
     var angleByProgress: CGFloat {
         return progress * attributes.sizes.maximumAngleInRadian + attributes.anchorPosition.radians
@@ -102,18 +102,18 @@ class CrownAttributesViewModel {
         }
         
         switch tapAction {
-        case .scrollsForwardWithOffset(value: let offset):
-            scrollView.add(offset: offset, to: attributes.scrollAxis)
-        case .scrollsBackwardWithOffset(value: let offset):
-            scrollView.subtract(offset: offset, from: attributes.scrollAxis)
-        case .scrollsToLeadingEdge:
-            scrollView.scrollToLeadingEdge(using: attributes.scrollAxis)
-        case .scrollsToTrailingEdge:
-            scrollView.scrollToTrailingEdge(using: attributes.scrollAxis)
-        case .scrollsToLeadingPage:
-            scrollView.scrollToLeadingPage(using: attributes.scrollAxis)
-        case .scrollsToTrailingPage:
-            scrollView.scrollToTrailingPage(using: attributes.scrollAxis)
+        case .scrollsForwardWithOffset(value: let offset, animated: let animated):
+            scrollView.add(offset: offset, to: attributes.scrollAxis, animated: animated)
+        case .scrollsBackwardWithOffset(value: let offset, animated: let animated):
+            scrollView.subtract(offset: offset, from: attributes.scrollAxis, animated: animated)
+        case .scrollsToLeadingEdge(animated: let animated):
+            scrollView.scrollToLeadingEdge(using: attributes.scrollAxis, animated: animated)
+        case .scrollsToTrailingEdge(animated: let animated):
+            scrollView.scrollToTrailingEdge(using: attributes.scrollAxis, animated: animated)
+        case .scrollsToLeadingPage(animated: let animated):
+            scrollView.scrollToLeadingPage(using: attributes.scrollAxis, animated: animated)
+        case .scrollsToTrailingPage(animated: let animated):
+            scrollView.scrollToTrailingPage(using: attributes.scrollAxis, animated: animated)
         case .custom(action: let action):
             action()
         case .none:
@@ -190,7 +190,7 @@ extension CrownAttributesViewModel {
     }
     
     /** Move the crown surface to a selected location */
-    func changeCrownLocation(to location: CGPoint) {
+    func changeCrownLocation(to location: CGPoint, animated: Bool = true) {
         guard superviewBounds.contains(location) else {
             return
         }
@@ -201,7 +201,7 @@ extension CrownAttributesViewModel {
         let distance = sqrt(xDiff * xDiff + yDiff * yDiff)
         
         let duration: TimeInterval
-        if distance > 1 {
+        if distance > 1 && animated {
             duration = 0.1
         } else {
             duration = 0
@@ -221,7 +221,7 @@ extension CrownAttributesViewModel {
     
     /** Get angle of a single foreground view within the crown surface */
     @discardableResult
-    func angle(of foregroundView: UIView, by center: CGPoint) -> CGFloat {
+    func angle(of foregroundView: UIView, by center: CGPoint, enforceEdgeNormalization: Bool = true) -> CGFloat {
         let v1 = CGVector(dx: foregroundView.center.x - crownAnchorPoint.x, dy: foregroundView.center.y - crownAnchorPoint.y)
         let v2 = CGVector(dx: center.x - crownAnchorPoint.x, dy: center.y - crownAnchorPoint.y)
         
@@ -243,7 +243,8 @@ extension CrownAttributesViewModel {
         }
         
         // TODO: Improve edge block caclulation
-        if abs(currentForegroundAngle - previousForegroundAngle) >= .pi * 0.05 &&
+        if enforceEdgeNormalization &&
+            abs(currentForegroundAngle - previousForegroundAngle) >= .pi * 0.05 &&
             (previousForegroundAngle == startingPoint || previousForegroundAngle == endingPoint) {
             return self.currentForegroundAngle
         } else {
@@ -310,7 +311,7 @@ extension CrownAttributesViewModel {
 extension CrownAttributesViewModel {
 
     /** Simulate panning of the foreground view by pan gesture state and a given translation */
-    func pan(foregroundView: UIView, with state: UIGestureRecognizer.State, translation: CGPoint) {
+    func pan(foregroundView: UIView, with state: UIGestureRecognizer.State, translation: CGPoint = .zero, enforceEdgeNormalization: Bool = true) {
         switch state {
         case .began:
             delegate.crownDidBeginSpinning()
@@ -322,7 +323,7 @@ extension CrownAttributesViewModel {
             delegate.crownWillUpdate()
             
             // Update current angle
-            currentForegroundAngle = angle(of: foregroundView, by: foregroundView.center + translation)
+            currentForegroundAngle = angle(of: foregroundView, by: foregroundView.center + translation, enforceEdgeNormalization: enforceEdgeNormalization)
             
             // Make the translation
             delegate.peformForegroundTranslation()
@@ -349,7 +350,7 @@ extension CrownAttributesViewModel {
     }
     
     /** Simulate long press of the crown surface */
-    func longPress(with state: UIGestureRecognizer.State, location: CGPoint) {
+    func longPress(with state: UIGestureRecognizer.State, location: CGPoint = .zero) {
         switch state {
         case .began:
             panSubject = .crown
@@ -365,7 +366,7 @@ extension CrownAttributesViewModel {
     }
     
     /** Simulate force touch upon the crown surface */
-    func force(force: CGFloat, max: CGFloat) {
+    func force(force: CGFloat, max: CGFloat, animateIfNeeded: Bool = true) {
         guard isForceTouchAvailable else {
             return
         }
@@ -391,7 +392,7 @@ extension CrownAttributesViewModel {
             self.view.transform = self.attributes.crownTransform.concatenating(CGAffineTransform(scaleX: newScale, y: newScale))
         }
         
-        if force == 0 {
+        if force == 0 && animateIfNeeded {
             UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.4, initialSpringVelocity: 0, options: [.beginFromCurrentState, .allowUserInteraction], animations: {
                 transform()
             }, completion: nil)

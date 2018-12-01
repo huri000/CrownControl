@@ -10,7 +10,7 @@ import UIKit
 import QuickLayout
 
 /** A crown view controller component */
-public class CrownViewController: UIViewController {
+class CrownViewController: UIViewController {
 
     // Delegate for the crown spin events
     private weak var delegate: CrownControlDelegate!
@@ -33,11 +33,15 @@ public class CrownViewController: UIViewController {
     
     private var originalHorizontalOffset: CGFloat = 0
     private var originalVerticalOffset: CGFloat = 0
+
+    var progress: CGFloat {
+        return viewModel.progress
+    }
     
-    var currentForegroundAngle: CGFloat {
+    var foregroundAngle: CGFloat {
         return viewModel.currentForegroundAngle
     }
-                
+    
     // The crown attributes descriptor
     let attributes: CrownAttributes
     var viewModel: CrownAttributesViewModel!
@@ -53,18 +57,18 @@ public class CrownViewController: UIViewController {
     
     // MARK: - Lifecycle
     
-    public init(with attributes: CrownAttributes, delegate: CrownControlDelegate? = nil) {
+    init(with attributes: CrownAttributes, delegate: CrownControlDelegate? = nil) {
         self.attributes = attributes
         self.delegate = delegate
         super.init(nibName: nil, bundle: nil)
         viewModel = CrownAttributesViewModel(using: attributes, delegate: self)
     }
     
-    public required init?(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    public override func loadView() {
+    override func loadView() {
         view = viewModel.view
         view.addSubview(contentView)
         view.isExclusiveTouch = true
@@ -219,19 +223,19 @@ public class CrownViewController: UIViewController {
     
     // MARK: - UIResponder
     
-    public override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         if let touch = touches.first {
             viewModel.force(force: touch.force, max: touch.maximumPossibleForce)
         }
     }
     
-    public override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         if let touch = touches.first {
             viewModel.force(force: 0, max: touch.maximumPossibleForce)
         }
     }
     
-    public override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
+    override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
         if let touch = touches.first {
             viewModel.force(force: 0, max: touch.maximumPossibleForce)
         }
@@ -296,21 +300,21 @@ public class CrownViewController: UIViewController {
 extension CrownViewController: CrownAttributesViewModelDelegate {
     
     func crownDidBeginSpinning() {
-        delegate?.crownDidBeginSpinning(self)
+//        delegate?.crownDidBeginSpinning(self)
     }
     
     func crownDidEndSpinning() {
-        delegate?.crownDidEndSpinning(self)
+//        delegate?.crownDidEndSpinning(self)
     }
     
     func crownWillUpdate() {
-        delegate?.crown(self, willUpdate: viewModel.progress)
+//        delegate?.crown(self, willUpdate: viewModel.progress)
     }
     
     func crownDidUpdate() {
         // Generate haptic feedback if needed
         generateEdgeFeedbackIfNecessary()
         
-        delegate?.crown(self, didUpdate: viewModel.progress)
+//        delegate?.crown(self, didUpdate: viewModel.progress)
     }
 }

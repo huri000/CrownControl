@@ -20,26 +20,26 @@ public extension CrownAttributes {
             public typealias Custom = () -> Void
             
             /** Scrolls forward to an additional given offset. Corresponds to *ScrollAxis* */
-            case scrollsForwardWithOffset(value: CGFloat)
+            case scrollsForwardWithOffset(value: CGFloat, animated: Bool)
             
             /** Subtract value form the current offset. Corresponds to *ScrollAxis* */
-            case scrollsBackwardWithOffset(value: CGFloat)
+            case scrollsBackwardWithOffset(value: CGFloat, animated: Bool)
             
             /** Scrolls to the fathest leading edge of the scroll-view */
-            case scrollsToLeadingEdge
+            case scrollsToLeadingEdge(animated: Bool)
             
             /**
              Scrolls to the farthest trailing edge of the scroll-view.
              Warning: In some cases the scroll view uses auto-layout (table view with estimated cell height),
              this might not work. Recommanded for small
              */
-            case scrollsToTrailingEdge
+            case scrollsToTrailingEdge(animated: Bool)
             
             /** Scrolls to the leading **page** of the scroll-view (which is an edge length of the scroll-view itself) */
-            case scrollsToLeadingPage
+            case scrollsToLeadingPage(animated: Bool)
             
             /** Scrolls to the trailing **page** of the scroll-view (which is an edge length of the scroll-view itself) */
-            case scrollsToTrailingPage
+            case scrollsToTrailingPage(animated: Bool)
             
             /** Customizable action */
             case custom(action: Custom)
@@ -112,10 +112,10 @@ public extension CrownAttributes {
         }
 
         /** Describes the action that takes place upon a single tap on the crown */
-        public var singleTap = TapAction.scrollsToTrailingPage
+        public var singleTap = TapAction.scrollsToTrailingPage(animated: true)
         
         /** Describes the action that takes place upon a double tap on the crown */
-        public var doubleTap = TapAction.scrollsToLeadingEdge
+        public var doubleTap = TapAction.scrollsToLeadingEdge(animated: true)
         
         /** The gesture that invokes the reposition action */
         public var repositionGesture = RepositionGesture.prefersForceTouch(attributes: .init())

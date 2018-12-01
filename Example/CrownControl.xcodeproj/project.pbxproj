@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		14096EB921B27F4B00464A24 /* CrownControlTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14096EB821B27F4B00464A24 /* CrownControlTests.swift */; };
+		14096EBB21B282B800464A24 /* CrownControlTestAccessors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14096EBA21B282B800464A24 /* CrownControlTestAccessors.swift */; };
 		141B762821A1FBD600583E0C /* SamplesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 141B761521A1FBD600583E0C /* SamplesViewController.swift */; };
 		141B762921A1FBD600583E0C /* ContactTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 141B761721A1FBD600583E0C /* ContactTableViewCell.xib */; };
 		141B762A21A1FBD600583E0C /* ContactsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 141B761821A1FBD600583E0C /* ContactsViewController.swift */; };
@@ -62,6 +64,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		14096EB821B27F4B00464A24 /* CrownControlTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrownControlTests.swift; sourceTree = "<group>"; };
+		14096EBA21B282B800464A24 /* CrownControlTestAccessors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrownControlTestAccessors.swift; sourceTree = "<group>"; };
 		141B761521A1FBD600583E0C /* SamplesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SamplesViewController.swift; sourceTree = "<group>"; };
 		141B761721A1FBD600583E0C /* ContactTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ContactTableViewCell.xib; sourceTree = "<group>"; };
 		141B761821A1FBD600583E0C /* ContactsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactsViewController.swift; sourceTree = "<group>"; };
@@ -284,6 +288,8 @@
 			children = (
 				607FACEB1AFB9204008FA782 /* CrownAttributesTests.swift */,
 				14322ECA21AF29BC00EDF7D6 /* CrownViewControllerTests.swift */,
+				14096EB821B27F4B00464A24 /* CrownControlTests.swift */,
+				14096EBA21B282B800464A24 /* CrownControlTestAccessors.swift */,
 				607FACE91AFB9204008FA782 /* Supporting Files */,
 			);
 			path = CrownControlTests;
@@ -590,7 +596,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				14096EB921B27F4B00464A24 /* CrownControlTests.swift in Sources */,
 				14322ECB21AF29BC00EDF7D6 /* CrownViewControllerTests.swift in Sources */,
+				14096EBB21B282B800464A24 /* CrownControlTestAccessors.swift in Sources */,
 				607FACEC1AFB9204008FA782 /* CrownAttributesTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

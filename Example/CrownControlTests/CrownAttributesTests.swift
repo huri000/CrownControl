@@ -89,7 +89,7 @@ class CrownAttributesSpec: QuickSpec {
             
             context("user interaction") {
                 it("is interactable if needed") {
-                    attributes.userInteraction.doubleTap = .scrollsToTrailingEdge
+                    attributes.userInteraction.doubleTap = .scrollsToTrailingEdge(animated: false)
                     expect(attributes.userInteraction.doubleTap.isInteractable).to(beTrue())
                 }
                 

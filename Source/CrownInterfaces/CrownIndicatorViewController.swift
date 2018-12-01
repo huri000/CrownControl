@@ -10,7 +10,7 @@ import UIKit
 import QuickLayout
 
 /** A crown indicator view controller */
-public class CrownIndicatorViewController: CrownViewController {
+class CrownIndicatorViewController: CrownViewController {
 
     // MARK: - Properties
     
@@ -25,12 +25,12 @@ public class CrownIndicatorViewController: CrownViewController {
         
     // MARK: - Lifecycle
     
-    public override func loadView() {
+    override func loadView() {
         super.loadView()
         view.addSubview(pinIndicatorView)
     }
     
-    public override func viewDidLoad() {
+    override func viewDidLoad() {
         super.viewDidLoad()
         DispatchQueue.main.async {
             self.peformForegroundTranslation()
@@ -47,6 +47,6 @@ public class CrownIndicatorViewController: CrownViewController {
     // MARK: - Calculation Accessors
     
     override func peformForegroundTranslation() {
-        pinIndicatorView.center = viewModel.calculateForegroundCenter(by: attributes.sizes.innerCircleEdgeSize * 0.5, angle: currentForegroundAngle)
+        pinIndicatorView.center = viewModel.calculateForegroundCenter(by: attributes.sizes.innerCircleEdgeSize * 0.5, angle: foregroundAngle)
     }
 }

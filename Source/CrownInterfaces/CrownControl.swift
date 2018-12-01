@@ -20,6 +20,14 @@ public struct CrownControl {
     
     private let crownViewController: CrownViewController
     
+    public var progress: CGFloat {
+        return crownViewController.progress
+    }
+    
+    public var foregroundAngle: CGFloat {
+        return crownViewController.foregroundAngle
+    }
+    
     // MARK: - Types
     
     public init(attributes: CrownAttributes, delegate: CrownControlDelegate? = nil, style: Style = .indicator) {

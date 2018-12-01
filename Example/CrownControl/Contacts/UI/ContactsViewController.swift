@@ -117,7 +117,4 @@ extension ContactsViewController: UITableViewDataSource, UITableViewDelegate {
 
 // MARK: - CrownDelegate
 
-extension ContactsViewController: CrownControlDelegate {
-    func crown(_ crownViewController: CrownViewController, willUpdate progress: CGFloat) {}
-    func crown(_ crownViewController: CrownViewController, didUpdate progress: CGFloat) {}
-}
+extension ContactsViewController: CrownControlDelegate {}
