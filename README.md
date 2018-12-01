@@ -161,7 +161,7 @@ Currently supported user interaction gestures: tap, double tap, long-press, and 
 
 When a single tap event occurs, scroll forward with the specified offset value: 
 ```Swift
-attributes.userInteraction.singleTap = .scrollsForwardWithOffset(value: 20)
+attributes.userInteraction.singleTap = .scrollsForwardWithOffset(value: 20, animated: true)
 ```
 
 When a single tap event occurs, perform a custom action. 
