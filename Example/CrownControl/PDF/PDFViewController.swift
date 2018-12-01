@@ -16,7 +16,7 @@ class PDFViewController: UIViewController {
     // MARK: - Properties
     
     private var webView: WKWebView!
-    private var crownViewController: CrownViewController!
+    private var crownControl: CrownControl!
 
     // MARK: - Lifecycle
     
@@ -40,7 +40,6 @@ class PDFViewController: UIViewController {
     private func setupCrownViewController() {
         var attributes = CrownAttributes(scrollView: webView.scrollView, scrollAxis: .vertical)
         attributes.foregroundStyle.content = .color(color: .white)
-        crownViewController = CrownIndicatorViewController(with: attributes)
         
         // Cling the bottom of the crown to the bottom of the web view with -35 offset
         let verticalConstraint = CrownAttributes.AxisConstraint(crownEdge: .bottom, anchorView: webView, anchorViewEdge: .bottom, offset: -35)
@@ -48,19 +47,16 @@ class PDFViewController: UIViewController {
         // Cling the bottom of the crown to the bottom of its superview with -50 offset
         let horizontalConstraint = CrownAttributes.AxisConstraint(crownEdge: .trailing, anchorView: view, anchorViewEdge: .trailing, offset: -50)
         
-        crownViewController.layout(in: self, horizontalConstaint: horizontalConstraint, verticalConstraint: verticalConstraint)
+        // Setup the crown control within *self*
+        crownControl = CrownControl(attributes: attributes)
+        crownControl.layout(in: view, horizontalConstaint: horizontalConstraint, verticalConstraint: verticalConstraint)
     }
 }
-
-// MARK: - CrownDelegate
-
-extension PDFViewController: CrownDelegate {}
 
 // MARK: - UIScrollViewDelegate
 
 extension PDFViewController: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        let offsetY = scrollView.contentOffset.y / (scrollView.contentSize.height - scrollView.bounds.height)
-        crownViewController?.spin(to: offsetY)
+        crownControl?.spinToMatchScrollViewOffset()
     }
 }

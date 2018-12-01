@@ -20,7 +20,7 @@ class ContactsViewController: UIViewController {
         return contactManager.firstLetters
     }
     
-    private var crownViewController: CrownViewController!
+    private var crownControl: CrownControl!
     
     @IBOutlet private weak var tableView: UITableView!
     
@@ -46,7 +46,6 @@ class ContactsViewController: UIViewController {
         attributes.backgroundStyle.content = .gradient(gradient: .init(colors: [UIColor(rgb: 0x304352), UIColor(rgb: 0xd7d2cc)], startPoint: .zero, endPoint: CGPoint(x: 1, y: 1)))
         attributes.backgroundStyle.border = .value(color: UIColor(rgb: 0x304352), width: 1)
         attributes.sizes.scrollRelation = round(tableView.contentSize.height / UIScreen.main.bounds.height)
-        crownViewController = CrownIndicatorViewController(with: attributes, delegate: self)
         
         // Cling the bottom of the crown to the bottom of the web view with -50 offset
         let verticalConstraint = CrownAttributes.AxisConstraint(crownEdge: .bottom, anchorView: tableView, anchorViewEdge: .bottom, offset: -50)
@@ -54,7 +53,9 @@ class ContactsViewController: UIViewController {
         // Cling the bottom of the crown to the bottom of its superview with -50 offset
         let horizontalConstraint = CrownAttributes.AxisConstraint(crownEdge: .trailing, anchorView: tableView, anchorViewEdge: .trailing, offset: -50)
         
-        crownViewController.layout(in: self, horizontalConstaint: horizontalConstraint, verticalConstraint: verticalConstraint)
+        // Setup the crown control within *self*
+        crownControl = CrownControl(attributes: attributes, delegate: self)
+        crownControl.layout(in: view, horizontalConstaint: horizontalConstraint, verticalConstraint: verticalConstraint)
     }
     
     private func loadData() {
@@ -110,14 +111,26 @@ extension ContactsViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        let offsetY = tableView.contentOffset.y / (tableView.contentSize.height - tableView.bounds.height)
-        crownViewController?.spin(to: offsetY)
+        crownControl?.spinToMatchScrollViewOffset()
     }
 }
 
 // MARK: - CrownDelegate
 
-extension ContactsViewController: CrownDelegate {
-    func crown(_ crownViewController: CrownViewController, willUpdate progress: CGFloat) {}
-    func crown(_ crownViewController: CrownViewController, didUpdate progress: CGFloat) {}
+extension ContactsViewController: CrownControlDelegate {
+    func crownDidBeginSpinning(_ crownControl: CrownControl) {
+        print("\(#function)")
+    }
+    
+    func crownDidEndSpinning(_ crownControl: CrownControl) {
+        print("\(#function)")
+    }
+    
+    func crown(_ crownControl: CrownControl, didUpdate progress: CGFloat) {
+        print("\(#function) with progress: \(progress)")
+    }
+    
+    func crown(_ crownControl: CrownControl, willUpdate progress: CGFloat) {
+        print("\(#function) with progress: \(progress)")
+    }
 }

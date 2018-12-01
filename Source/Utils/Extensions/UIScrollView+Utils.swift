@@ -10,7 +10,20 @@ import UIKit
 
 extension UIScrollView {
     
-    func scrollToLeadingEdge(using axis: CrownAttributes.ScrollAxis) {
+    func progress(by axis: CrownAttributes.ScrollAxis) -> CGFloat {
+        var offset: CGFloat = 0
+        switch axis {
+        case .vertical where contentSize.height > bounds.height:
+            offset = contentOffset.y / (contentSize.height - bounds.height)
+        case .horizontal where contentSize.width > bounds.width:
+            offset = contentOffset.x / (contentSize.width - bounds.width)
+        default:
+            break
+        }
+        return offset
+    }
+    
+    func scrollToLeadingEdge(using axis: CrownAttributes.ScrollAxis, animated: Bool = true) {
         let point: CGPoint
         switch axis {
         case .vertical:
@@ -18,23 +31,23 @@ extension UIScrollView {
         case .horizontal:
             point = CGPoint(x: 0, y: contentOffset.y)
         }
-        setContentOffset(point, animated: true)
+        setContentOffset(point, animated: animated)
     }
     
-    func scrollToTrailingEdge(using axis: CrownAttributes.ScrollAxis) {
+    func scrollToTrailingEdge(using axis: CrownAttributes.ScrollAxis, animated: Bool = true) {
         switch axis {
         case .vertical where contentSize.height > bounds.size.height:
             let frame = CGRect(x: contentOffset.x, y: contentSize.height - 1.0, width: contentSize.width, height: 1.0)
-            scrollRectToVisible(frame, animated: true)
+            scrollRectToVisible(frame, animated: animated)
         case .horizontal where contentSize.width > bounds.size.width:
             let frame = CGRect(x: contentSize.width - 1.0, y: contentOffset.y, width: 1, height: contentSize.height)
-            scrollRectToVisible(frame, animated: true)
+            scrollRectToVisible(frame, animated: animated)
         default:
             break
         }
     }
     
-    func scrollToLeadingPage(using axis: CrownAttributes.ScrollAxis) {
+    func scrollToLeadingPage(using axis: CrownAttributes.ScrollAxis, animated: Bool = true) {
         let additionalOffset: CGFloat
         switch axis {
         case .vertical:
@@ -45,7 +58,7 @@ extension UIScrollView {
         subtract(offset: additionalOffset, from: axis)
     }
     
-    func scrollToTrailingPage(using axis: CrownAttributes.ScrollAxis) {
+    func scrollToTrailingPage(using axis: CrownAttributes.ScrollAxis, animated: Bool = true) {
         let additionalOffset: CGFloat
         switch axis {
         case .vertical:
@@ -56,7 +69,7 @@ extension UIScrollView {
         add(offset: additionalOffset, to: axis)
     }
     
-    func subtract(offset: CGFloat, from axis: CrownAttributes.ScrollAxis) {
+    func subtract(offset: CGFloat, from axis: CrownAttributes.ScrollAxis, animated: Bool = true) {
         let point: CGPoint
         switch axis {
         case .vertical:
@@ -74,10 +87,10 @@ extension UIScrollView {
                 point = CGPoint(x: 0, y: contentOffset.y)
             }
         }
-        setContentOffset(point, animated: true)
+        setContentOffset(point, animated: animated)
     }
     
-    func add(offset: CGFloat, to axis: CrownAttributes.ScrollAxis) {
+    func add(offset: CGFloat, to axis: CrownAttributes.ScrollAxis, animated: Bool = true) {
         let maxOffset = maxContentOffset(for: axis)
         var point = contentOffset
         switch axis {
@@ -96,10 +109,10 @@ extension UIScrollView {
                 point = CGPoint(x: maxOffset.x, y: contentOffset.y)
             }
         }
-        setContentOffset(point, animated: true)
+        setContentOffset(point, animated: animated)
     }
 
-    func maxContentOffset(for axis: CrownAttributes.ScrollAxis) -> CGPoint {
+    func maxContentOffset(for axis: CrownAttributes.ScrollAxis, animated: Bool = true) -> CGPoint {
         var offset = contentOffset
         switch axis {
         case .vertical:

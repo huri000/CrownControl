@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		14096EB921B27F4B00464A24 /* CrownControlTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14096EB821B27F4B00464A24 /* CrownControlTests.swift */; };
+		14096EBB21B282B800464A24 /* CrownControlTestAccessors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14096EBA21B282B800464A24 /* CrownControlTestAccessors.swift */; };
+		14096EBD21B2B41600464A24 /* HapticFeedbackGenerationSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14096EBC21B2B41600464A24 /* HapticFeedbackGenerationSpec.swift */; };
 		141B762821A1FBD600583E0C /* SamplesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 141B761521A1FBD600583E0C /* SamplesViewController.swift */; };
 		141B762921A1FBD600583E0C /* ContactTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 141B761721A1FBD600583E0C /* ContactTableViewCell.xib */; };
 		141B762A21A1FBD600583E0C /* ContactsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 141B761821A1FBD600583E0C /* ContactsViewController.swift */; };
@@ -38,6 +41,7 @@
 		141B765621A1FC1F00583E0C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 141B765421A1FC1F00583E0C /* Main.storyboard */; };
 		141B765821A1FC7A00583E0C /* UIColor+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 141B765721A1FC7A00583E0C /* UIColor+Utils.swift */; };
 		141B765A21A1FC9E00583E0C /* Object+ClassName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 141B765921A1FC9E00583E0C /* Object+ClassName.swift */; };
+		14322ECB21AF29BC00EDF7D6 /* CrownInteractionSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14322ECA21AF29BC00EDF7D6 /* CrownInteractionSpec.swift */; };
 		144ED30321A98DFE0062DD74 /* CHANGELOG.md in Resources */ = {isa = PBXBuildFile; fileRef = 144ED30221A98DFE0062DD74 /* CHANGELOG.md */; };
 		14B7514921A2B3C400536272 /* SampleData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14B7514821A2B3C400536272 /* SampleData.swift */; };
 		14B7514C21A2B69E00536272 /* UIStoryboard+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14B7514B21A2B69E00536272 /* UIStoryboard+Utils.swift */; };
@@ -45,7 +49,7 @@
 		607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACD51AFB9204008FA782 /* AppDelegate.swift */; };
 		607FACDD1AFB9204008FA782 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 607FACDC1AFB9204008FA782 /* Images.xcassets */; };
 		607FACE01AFB9204008FA782 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 607FACDE1AFB9204008FA782 /* LaunchScreen.xib */; };
-		607FACEC1AFB9204008FA782 /* CrownAttributesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACEB1AFB9204008FA782 /* CrownAttributesTests.swift */; };
+		607FACEC1AFB9204008FA782 /* CrownAttributesSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACEB1AFB9204008FA782 /* CrownAttributesSpec.swift */; };
 		87112A1E45B4BF791A1D41EF /* Pods_CrownControlDemo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DB0497C094391FD38797E479 /* Pods_CrownControlDemo.framework */; };
 		D6B5BED3938F7AB3CA6B6005 /* Pods_CrownControlTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E490B07CECD5E8AB030A0154 /* Pods_CrownControlTests.framework */; };
 /* End PBXBuildFile section */
@@ -61,6 +65,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		14096EB821B27F4B00464A24 /* CrownControlTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrownControlTests.swift; sourceTree = "<group>"; };
+		14096EBA21B282B800464A24 /* CrownControlTestAccessors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrownControlTestAccessors.swift; sourceTree = "<group>"; };
+		14096EBC21B2B41600464A24 /* HapticFeedbackGenerationSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HapticFeedbackGenerationSpec.swift; sourceTree = "<group>"; };
 		141B761521A1FBD600583E0C /* SamplesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SamplesViewController.swift; sourceTree = "<group>"; };
 		141B761721A1FBD600583E0C /* ContactTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ContactTableViewCell.xib; sourceTree = "<group>"; };
 		141B761821A1FBD600583E0C /* ContactsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactsViewController.swift; sourceTree = "<group>"; };
@@ -92,6 +99,7 @@
 		141B765521A1FC1F00583E0C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		141B765721A1FC7A00583E0C /* UIColor+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Utils.swift"; sourceTree = "<group>"; };
 		141B765921A1FC9E00583E0C /* Object+ClassName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Object+ClassName.swift"; sourceTree = "<group>"; };
+		14322ECA21AF29BC00EDF7D6 /* CrownInteractionSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrownInteractionSpec.swift; sourceTree = "<group>"; };
 		144ED30221A98DFE0062DD74 /* CHANGELOG.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; name = CHANGELOG.md; path = ../CHANGELOG.md; sourceTree = "<group>"; };
 		14B7514821A2B3C400536272 /* SampleData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleData.swift; sourceTree = "<group>"; };
 		14B7514B21A2B69E00536272 /* UIStoryboard+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIStoryboard+Utils.swift"; sourceTree = "<group>"; };
@@ -105,7 +113,7 @@
 		607FACDF1AFB9204008FA782 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		607FACE51AFB9204008FA782 /* CrownControlTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CrownControlTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		607FACEA1AFB9204008FA782 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		607FACEB1AFB9204008FA782 /* CrownAttributesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrownAttributesTests.swift; sourceTree = "<group>"; };
+		607FACEB1AFB9204008FA782 /* CrownAttributesSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrownAttributesSpec.swift; sourceTree = "<group>"; };
 		714E021AD8A830A0DD45B94E /* Pods-CrownControlTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CrownControlTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CrownControlTests/Pods-CrownControlTests.debug.xcconfig"; sourceTree = "<group>"; };
 		A35773A4EB53D93CB3CCD530 /* CrownControl.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = CrownControl.podspec; path = ../CrownControl.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		D73230BDE1CB6A516421FEF6 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
@@ -280,7 +288,11 @@
 		607FACE81AFB9204008FA782 /* CrownControlTests */ = {
 			isa = PBXGroup;
 			children = (
-				607FACEB1AFB9204008FA782 /* CrownAttributesTests.swift */,
+				14096EB821B27F4B00464A24 /* CrownControlTests.swift */,
+				607FACEB1AFB9204008FA782 /* CrownAttributesSpec.swift */,
+				14322ECA21AF29BC00EDF7D6 /* CrownInteractionSpec.swift */,
+				14096EBC21B2B41600464A24 /* HapticFeedbackGenerationSpec.swift */,
+				14096EBA21B282B800464A24 /* CrownControlTestAccessors.swift */,
 				607FACE91AFB9204008FA782 /* Supporting Files */,
 			);
 			path = CrownControlTests;
@@ -587,7 +599,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				607FACEC1AFB9204008FA782 /* CrownAttributesTests.swift in Sources */,
+				14096EB921B27F4B00464A24 /* CrownControlTests.swift in Sources */,
+				14096EBD21B2B41600464A24 /* HapticFeedbackGenerationSpec.swift in Sources */,
+				14322ECB21AF29BC00EDF7D6 /* CrownInteractionSpec.swift in Sources */,
+				14096EBB21B282B800464A24 /* CrownControlTestAccessors.swift in Sources */,
+				607FACEC1AFB9204008FA782 /* CrownAttributesSpec.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
