@@ -8,19 +8,22 @@
 import Foundation
 
 /** Clean crown provider */
-public struct CrownControl {
+public class CrownControl {
     
     // MARK: - Properties
     
     /** The crown surface controller */
     private let crownSurfaceController: CrownSurfaceController
     
-    /** The reported progress in range of [0...1] */
+    /** Transmits the information about the crown progress*/
+    private weak var delegate: CrownControlDelegate!
+    
+    /** The reported progress of the foreground, represented at a float value in the range [0...1] */
     public var progress: CGFloat {
         return crownSurfaceController.progress
     }
     
-    /** The current angle of the foreground view */
+    /** The current angle of the foreground view within the crown surface */
     public var foregroundAngle: CGFloat {
         return crownSurfaceController.currentForegroundAngle
     }
@@ -56,5 +59,25 @@ public struct CrownControl {
      */
     public func spinToMatchScrollViewOffset() {
         crownSurfaceController.spinToMatchScrollViewOffset()
+    }
+}
+
+// MARK: - CrownFunctionalDelegate
+
+extension CrownControl: CrownFunctionalDelegate {
+    func crownDidBeginSpinning() {
+        delegate?.crownDidBeginSpinning(self)
+    }
+    
+    func crownDidEndSpinning() {
+        delegate?.crownDidEndSpinning(self)
+    }
+    
+    func crownWillUpdate() {
+        delegate?.crown(self, willUpdate: progress)
+    }
+    
+    func crownDidUpdate() {
+        delegate?.crown(self, didUpdate: progress)
     }
 }

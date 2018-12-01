@@ -224,16 +224,16 @@ class CrownControlViewModelTests: QuickSpec, CrownControlDefaultSetup {
                     expect(crownFrameBeforeAction).to(equal(viewModel.crownFrame))
                 }
                 
-                it("responds to pan in *changed* state - pan downward") {
-                    let translation = CGPoint(x: 0, y: attributes.sizes.backgroundSurfaceRadius)
-                    viewModel.pan(foregroundView: foregroundView, with: .changed, translation: translation, enforceEdgeNormalization: false)
-                    expect(viewModel.currentForegroundAngle).to(equal(.pi * 0.5))
-                }
-                
                 it("responds to pan in *changed* state - pan left") {
-                    let translation = CGPoint(x: -attributes.sizes.backgroundSurfaceRadius, y: 0)
+                    let translation = CGPoint(x: .min, y: 0)
                     viewModel.pan(foregroundView: foregroundView, with: .changed, translation: translation, enforceEdgeNormalization: false)
                     expect(viewModel.currentForegroundAngle).to(equal(.pi))
+                }
+                
+                it("responds to pan in *changed* state - pan downward") {
+                    let translation = CGPoint(x: 0, y: .max)
+                    viewModel.pan(foregroundView: foregroundView, with: .changed, translation: translation, enforceEdgeNormalization: false)
+                    expect(viewModel.currentForegroundAngle).to(equal(.pi * 0.5))
                 }
             }
         }

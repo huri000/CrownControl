@@ -28,9 +28,7 @@ class CrownIndicatorView: CrownSurfaceView {
     override init(with attributes: CrownAttributes, controller: CrownSurfaceController, delegate: CrownControlDelegate? = nil) {
         super.init(with: attributes, controller: controller, delegate: delegate)
         addSubview(pinIndicatorView)
-        DispatchQueue.main.async {
-            self.peformForegroundTranslation()
-        }
+        peformForegroundTranslation()
     }
     
     required init?(coder aDecoder: NSCoder) {

@@ -7,8 +7,7 @@
 
 import Foundation
 
-protocol CrownSurfaceControllerDelegate: class {
-    func peformForegroundTranslation()
+protocol CrownFunctionalDelegate: class {
     func crownDidBeginSpinning()
     func crownDidEndSpinning()
     func crownWillUpdate()
@@ -39,7 +38,7 @@ class CrownSurfaceController {
     }
     
     // The subject of the pan gesture recognizer
-    var panSubject = PanSubject.indicator {
+    private(set) var panSubject = PanSubject.indicator {
         didSet {
             HapticFeedbackGenerator.select()
         }
@@ -51,7 +50,7 @@ class CrownSurfaceController {
     
     private let attributes: CrownAttributes
     
-    private weak var delegate: CrownControlDelegate?
+    private weak var delegate: CrownFunctionalDelegate?
     
     let crownAnchorPoint: CGPoint
     
@@ -73,8 +72,9 @@ class CrownSurfaceController {
     }
     
     /** The progress of the foreground indicator */
-    public var progress: CGFloat = 0
+    private(set) var progress: CGFloat = 0
     
+    /** The angle of the foreground within the crown surface */
     private(set) var previousForegroundAngle: CGFloat = 0
     private(set) var currentForegroundAngle: CGFloat = 0
     
@@ -85,12 +85,12 @@ class CrownSurfaceController {
     // MARK: - Setup
     
     init(attributes: CrownAttributes, delegate: CrownControlDelegate? = nil) {
-        self.delegate = delegate
         self.attributes = attributes
         currentForegroundAngle = attributes.anchorPosition.radians
         previousForegroundAngle = currentForegroundAngle
         crownAnchorPoint = attributes.sizes.crownCenter
         view = CrownIndicatorView(with: attributes, controller: self)
+        view.setupGestureRecognizers()
     }
     
     /** Perform a given tap action */
@@ -312,13 +312,13 @@ extension CrownSurfaceController {
     func pan(foregroundView: UIView, with state: UIGestureRecognizer.State, translation: CGPoint = .zero, enforceEdgeNormalization: Bool = true) {
         switch state {
         case .began:
-            view.crownDidBeginSpinning()
+            delegate?.crownDidBeginSpinning()
         case .changed where isAbleToSpin:
             
             isAutoSpinEnabled = true
             
             // Inform delegate pre update
-            view.crownWillUpdate()
+            delegate?.crownWillUpdate()
             
             // Update current angle
             currentForegroundAngle = angle(of: foregroundView, by: foregroundView.center + translation, enforceEdgeNormalization: enforceEdgeNormalization)
@@ -333,7 +333,10 @@ extension CrownSurfaceController {
             updateScrollViewOffset()
             
             // Update delegate after the progress update
-            view.crownDidUpdate()
+            generateEdgeFeedbackIfNecessary()
+            
+            // Inform delegate pre update
+            delegate?.crownDidUpdate()
             
             // Update previous angle
             updatePreviousForegroundAngleToMatchCurrent()
@@ -341,9 +344,23 @@ extension CrownSurfaceController {
             isAutoSpinEnabled = false
             
         case .cancelled, .ended, .failed:
-            view.crownDidEndSpinning()
+            delegate?.crownDidEndSpinning()
         default:
             break
+        }
+    }
+    
+    /** Generate edge collision feedback if necessary */
+    func generateEdgeFeedbackIfNecessary() {
+        var feedback: CrownAttributes.Feedback.Descripter?
+        if hasForegroundReachedLeadingEdge {
+            feedback = attributes.feedback.leading
+        } else if hasForegroundReachedTrailingEdge {
+            feedback = attributes.feedback.trailing
+        }
+        if let feedback = feedback {
+            view.generate(edgeFeedback: feedback)
+            HapticFeedbackGenerator.generate(impact: feedback.impactHaptic)
         }
     }
     

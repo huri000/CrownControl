@@ -11,9 +11,6 @@ import QuickLayout
 
 /** The crown surface view */
 class CrownSurfaceView: UIView {
-
-    // Delegate for the crown spin events
-    private weak var delegate: CrownControlDelegate!
     
     var indicatorView: UIView {
         preconditionFailure("\(#function) be overridden by subclass")
@@ -44,7 +41,7 @@ class CrownSurfaceView: UIView {
     
     // The crown attributes descriptor
     let attributes: CrownAttributes
-    var controller: CrownSurfaceController!
+    unowned let controller: CrownSurfaceController
     
     // MARK: UI Elements
     
@@ -59,7 +56,6 @@ class CrownSurfaceView: UIView {
     
     init(with attributes: CrownAttributes, controller: CrownSurfaceController, delegate: CrownControlDelegate? = nil) {
         self.attributes = attributes
-        self.delegate = delegate
         self.controller = controller
         
         super.init(frame: CGRect(origin: .zero, size: attributes.sizes.backgroundSurfaceSquareSize))
@@ -70,10 +66,8 @@ class CrownSurfaceView: UIView {
         contentView.layoutToSuperview(.left, .right, .top, .bottom)
         contentView.addSubview(backgroundView)
         
-        setupUserInteraction()
-        
         transform = attributes.crownTransform
-        
+
         NotificationCenter.default.addObserver(self, selector: #selector(deviceOrientationDidChange), name: UIDevice.orientationDidChangeNotification, object: nil)
     }
     
@@ -83,7 +77,11 @@ class CrownSurfaceView: UIView {
     
     // MARK: - Setup
     
-    private func setupUserInteraction() {
+    func setupGestureRecognizers() {
+        
+        // Just in case of accidentally calling this method multiple times, erase before initialization
+        gestureRecognizers?.forEach { self.removeGestureRecognizer($0) }
+        
         panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(panGestureRecognized))
         panGestureRecognizer.cancelsTouchesInView = false
         addGestureRecognizer(panGestureRecognizer)
@@ -205,16 +203,7 @@ class CrownSurfaceView: UIView {
     
     // MARK: - Feedback Generation
     
-    private func generateEdgeFeedbackIfNecessary() {
-        if controller.hasForegroundReachedLeadingEdge {
-            generate(edgeFeedback: attributes.feedback.leading)
-        } else if controller.hasForegroundReachedTrailingEdge {
-            generate(edgeFeedback: attributes.feedback.trailing)
-        }
-    }
-    
     func generate(edgeFeedback: CrownAttributes.Feedback.Descripter) {
-        HapticFeedbackGenerator.generate(impact: edgeFeedback.impactHaptic)
         backgroundView.flash(with: edgeFeedback.backgroundFlash)
     }
     
@@ -276,29 +265,5 @@ class CrownSurfaceView: UIView {
     
     func peformForegroundTranslation() {
         preconditionFailure("Must be implemented by subclass")
-    }
-}
-
-// MARK: CrownSurfaceControllerDelegate
-
-extension CrownSurfaceView: CrownSurfaceControllerDelegate {
-    
-    func crownDidBeginSpinning() {
-//        delegate?.crownDidBeginSpinning(self)
-    }
-    
-    func crownDidEndSpinning() {
-//        delegate?.crownDidEndSpinning(self)
-    }
-    
-    func crownWillUpdate() {
-//        delegate?.crown(self, willUpdate: viewModel.progress)
-    }
-    
-    func crownDidUpdate() {
-        // Generate haptic feedback if needed
-        generateEdgeFeedbackIfNecessary()
-        
-//        delegate?.crown(self, didUpdate: viewModel.progress)
     }
 }
