@@ -60,7 +60,7 @@ class PhotoCollectionViewController: UIViewController {
         let horizontalConstraint = CrownAttributes.AxisConstraint(crownEdge: .centerX, anchorView: view, anchorViewEdge: .centerX)
         
         crownControl = CrownControl(attributes: attributes)
-        crownControl.layout(in: self, horizontalConstaint: horizontalConstraint, verticalConstraint: verticalConstraint)
+        crownControl.layout(in: view, horizontalConstaint: horizontalConstraint, verticalConstraint: verticalConstraint)
     }
     
     private func loadData() {

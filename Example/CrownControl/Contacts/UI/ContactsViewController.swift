@@ -55,7 +55,7 @@ class ContactsViewController: UIViewController {
         
         // Setup the crown control within *self*
         crownControl = CrownControl(attributes: attributes, delegate: self)
-        crownControl.layout(in: self, horizontalConstaint: horizontalConstraint, verticalConstraint: verticalConstraint)
+        crownControl.layout(in: view, horizontalConstaint: horizontalConstraint, verticalConstraint: verticalConstraint)
     }
     
     private func loadData() {

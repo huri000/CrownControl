@@ -1,5 +1,5 @@
 //
-//  CrownAttributesViewModel.swift
+//  CrownSurfaceController.swift
 //  CrownControl
 //
 //  Created by Daniel Huri on 11/30/18.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-protocol CrownAttributesViewModelDelegate: class {
+protocol CrownSurfaceControllerDelegate: class {
     func peformForegroundTranslation()
     func crownDidBeginSpinning()
     func crownDidEndSpinning()
@@ -15,8 +15,8 @@ protocol CrownAttributesViewModelDelegate: class {
     func crownDidUpdate()
 }
 
-/** This construct's purpose is using CrownAttributes instance to peform actions in the name of the controller itself */
-class CrownAttributesViewModel {
+/** This construct's purpose is using CrownAttributes instance to peform actions as the controller, midiate between the view surface and attributes */
+class CrownSurfaceController {
     
     // MARK: - Types
     
@@ -51,14 +51,11 @@ class CrownAttributesViewModel {
     
     private let attributes: CrownAttributes
     
-    private unowned let delegate: CrownAttributesViewModelDelegate
+    private weak var delegate: CrownControlDelegate?
     
     let crownAnchorPoint: CGPoint
     
-    private(set) lazy var view: UIView = {
-        let frame = CGRect(origin: .zero, size: attributes.sizes.backgroundSurfaceSquareSize)
-        return UIView(frame: frame)
-    }()
+    private(set) var view: CrownSurfaceView!
     
     // Syntactic sugar for accessing the scroll view
     private var scrollView: UIScrollView? {
@@ -87,12 +84,13 @@ class CrownAttributesViewModel {
     
     // MARK: - Setup
     
-    init(using attributes: CrownAttributes, delegate: CrownAttributesViewModelDelegate) {
-        self.attributes = attributes
+    init(attributes: CrownAttributes, delegate: CrownControlDelegate? = nil) {
         self.delegate = delegate
+        self.attributes = attributes
         currentForegroundAngle = attributes.anchorPosition.radians
         previousForegroundAngle = currentForegroundAngle
         crownAnchorPoint = attributes.sizes.crownCenter
+        view = CrownIndicatorView(with: attributes, controller: self)
     }
     
     /** Perform a given tap action */
@@ -124,7 +122,7 @@ class CrownAttributesViewModel {
 
 // MARK: - Bounds / Frames / Movement related logic
 
-extension CrownAttributesViewModel {
+extension CrownSurfaceController {
     
     var isAbleToSpin: Bool {
         guard let scrollView = attributes.scrollView else {
@@ -308,25 +306,25 @@ extension CrownAttributesViewModel {
 
 // MARK: - User Actions
 
-extension CrownAttributesViewModel {
+extension CrownSurfaceController {
 
     /** Simulate panning of the foreground view by pan gesture state and a given translation */
     func pan(foregroundView: UIView, with state: UIGestureRecognizer.State, translation: CGPoint = .zero, enforceEdgeNormalization: Bool = true) {
         switch state {
         case .began:
-            delegate.crownDidBeginSpinning()
+            view.crownDidBeginSpinning()
         case .changed where isAbleToSpin:
             
             isAutoSpinEnabled = true
             
             // Inform delegate pre update
-            delegate.crownWillUpdate()
+            view.crownWillUpdate()
             
             // Update current angle
             currentForegroundAngle = angle(of: foregroundView, by: foregroundView.center + translation, enforceEdgeNormalization: enforceEdgeNormalization)
             
             // Make the translation
-            delegate.peformForegroundTranslation()
+            view.peformForegroundTranslation()
             
             // Update progress
             updateProgressToMatchAngle()
@@ -335,7 +333,7 @@ extension CrownAttributesViewModel {
             updateScrollViewOffset()
             
             // Update delegate after the progress update
-            delegate.crownDidUpdate()
+            view.crownDidUpdate()
             
             // Update previous angle
             updatePreviousForegroundAngleToMatchCurrent()
@@ -343,7 +341,7 @@ extension CrownAttributesViewModel {
             isAutoSpinEnabled = false
             
         case .cancelled, .ended, .failed:
-            delegate.crownDidEndSpinning()
+            view.crownDidEndSpinning()
         default:
             break
         }
@@ -408,7 +406,7 @@ extension CrownAttributesViewModel {
         }
         self.progress = progress
         updateCurrentAngleToMatchProgress()
-        delegate.peformForegroundTranslation()
+        view.peformForegroundTranslation()
         updatePreviousForegroundAngleToMatchCurrent()
     }
     

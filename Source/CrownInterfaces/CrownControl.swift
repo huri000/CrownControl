@@ -10,40 +10,37 @@ import Foundation
 /** Clean crown provider */
 public struct CrownControl {
     
-    // MARK: - Types
-    
-    public enum Style {
-        case indicator
-    }
-    
     // MARK: - Properties
     
-    private let crownViewController: CrownViewController
+    /** The crown surface controller */
+    private let crownSurfaceController: CrownSurfaceController
     
+    /** The reported progress in range of [0...1] */
     public var progress: CGFloat {
-        return crownViewController.progress
+        return crownSurfaceController.progress
     }
     
+    /** The current angle of the foreground view */
     public var foregroundAngle: CGFloat {
-        return crownViewController.foregroundAngle
+        return crownSurfaceController.currentForegroundAngle
     }
     
-    // MARK: - Types
-    
-    public init(attributes: CrownAttributes, delegate: CrownControlDelegate? = nil, style: Style = .indicator) {
-        crownViewController = CrownIndicatorViewController(with: attributes, delegate: delegate)
+    // MARK: - Setup
+
+    public init(attributes: CrownAttributes, delegate: CrownControlDelegate? = nil) {
+        crownSurfaceController = CrownSurfaceController(attributes: attributes, delegate: delegate)
     }
     
     // MARK: - Exposed
     
     /**
      Add the crown view controller as a child of a parent view controller and layout it vertically and horizontally.
-     - parameter parent: A parent view controller.
+     - parameter superview: The superview.
      - parameter horizontalConstaint: Horizontal constraint construct.
      - parameter verticalConstraint: Vertical constraint construct.
      */
-    public func layout(in parent: UIViewController, horizontalConstaint: CrownAttributes.AxisConstraint, verticalConstraint: CrownAttributes.AxisConstraint) {
-        crownViewController.layout(in: parent, horizontalConstaint: horizontalConstaint, verticalConstraint: verticalConstraint)
+    public func layout(in superview: UIView, horizontalConstaint: CrownAttributes.AxisConstraint, verticalConstraint: CrownAttributes.AxisConstraint) {
+        crownSurfaceController.view.layout(in: superview, horizontalConstaint: horizontalConstaint, verticalConstraint: verticalConstraint)
     }
     
     /**
@@ -51,13 +48,13 @@ public struct CrownControl {
      - parameter progress: The progress of the spin from 0 to 1. Reflects the offset in the bound scroll view.
      */
     public func spin(to progress: CGFloat) {
-        crownViewController.spin(to: progress)
+        crownSurfaceController.spin(to: progress)
     }
     
     /**
      Spins the crown's foreground to match the scroll view offset
      */
     public func spinToMatchScrollViewOffset() {
-        crownViewController.spinToMatchScrollViewOffset()
+        crownSurfaceController.spinToMatchScrollViewOffset()
     }
 }

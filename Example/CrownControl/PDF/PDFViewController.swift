@@ -49,7 +49,7 @@ class PDFViewController: UIViewController {
         
         // Setup the crown control within *self*
         crownControl = CrownControl(attributes: attributes)
-        crownControl.layout(in: self, horizontalConstaint: horizontalConstraint, verticalConstraint: verticalConstraint)
+        crownControl.layout(in: view, horizontalConstaint: horizontalConstraint, verticalConstraint: verticalConstraint)
     }
 }
 

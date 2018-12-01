@@ -9,23 +9,28 @@
 import UIKit
 
 struct HapticFeedbackGenerator {
-    static func generate(impact: CrownAttributes.Feedback.Descripter.ImpactHaptic) {
+    
+    @discardableResult
+    static func generate(impact: CrownAttributes.Feedback.Descripter.ImpactHaptic) -> Bool {
         guard #available(iOS 10.0, *) else {
-            return
+            return false
         }
         guard let value = impact.value else {
-            return
+            return false
         }
         let generator = UIImpactFeedbackGenerator(style: value)
         generator.impactOccurred()
+        return true
     }
     
-    static func select() {
+    @discardableResult
+    static func select() -> Bool {
         guard #available(iOS 10.0, *) else {
-            return
+            return false
         }
         
         let generator = UINotificationFeedbackGenerator()
         generator.notificationOccurred(.success)
+        return true
     }
 }

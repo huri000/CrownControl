@@ -18,8 +18,8 @@ class CrownControlViewModelTests: QuickSpec, CrownControlDefaultSetup {
             var attributes: CrownAttributes!
             var scrollView: UIScrollView!
             var contentHeightRatio: CGFloat!
-            var crownViewController: CrownViewController!
-            var viewModel: CrownAttributesViewModel!
+            var crownViewController: CrownSurfaceView!
+            var viewModel: CrownSurfaceController!
             
             // Before each test case perform a whole app initialization
             beforeEach {
@@ -44,8 +44,8 @@ class CrownControlViewModelTests: QuickSpec, CrownControlDefaultSetup {
                 // Cling the bottom of the crown to the bottom of its superview with -50 offset
                 let horizontalConstraint = CrownAttributes.AxisConstraint(crownEdge: .trailing, anchorView: rootViewController.view, anchorViewEdge: .trailing, offset: -50)
                 
-                crownViewController = CrownIndicatorViewController(with: attributes)
-                crownViewController.layout(in: rootViewController, horizontalConstaint: horizontalConstraint, verticalConstraint: verticalConstraint)
+                crownViewController = CrownIndicatorView(with: attributes)
+                crownViewController.layout(in: rootViewController.view, horizontalConstaint: horizontalConstraint, verticalConstraint: verticalConstraint)
                 viewModel = crownViewController.viewModel
             }
             
